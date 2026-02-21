@@ -1,0 +1,26 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'quanlycanhan-monitor'
+
+scrape_configs:
+  # Spring Boot Actuator metrics
+  - job_name: 'spring-boot'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['backend:8085']
+        labels:
+          application: 'quanlycanhan-backend'
+          environment: 'production'
+
+  # MySQL Exporter (optional - cần cài mysql_exporter)
+  # - job_name: 'mysql'
+  #   static_configs:
+  #     - targets: ['mysql-exporter:9104']
+
+  # Redis Exporter (optional - cần cài redis_exporter)
+  # - job_name: 'redis'
+  #   static_configs:
+  #     - targets: ['redis-exporter:9121']
+

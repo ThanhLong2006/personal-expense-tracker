@@ -1,0 +1,55 @@
+# ===== Spring Boot / Java / Maven =====
+target/
+*.jar
+*.war
+*.ear
+.mvn/
+mvnw
+mvnw.cmd
+*.class
+*.log
+logs/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# ===== React / Node / Tailwind / Frontend =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*
+build/
+dist/
+coverage/
+*.min.css  # nếu Tailwind build ra file minified lớn
+.DS_Store
+Thumbs.db
+
+# ===== Các file nhạy cảm chung (secret, config local) =====
+application.properties
+application.yml
+application-*.properties
+application-*.yml
+secrets/
+config/local/
+*.key
+*.pem
+*.secret
+*.token
+credentials.json
+keystore.jks
+truststore.jks
+
+# ===== Khác =====
+*.swp
+*.swo
+*.bak
+*.tmp

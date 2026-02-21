@@ -1,0 +1,44 @@
+{
+  "metadata" : {
+    "counts" : {
+      "adminLogs" : 0,
+      "transactions" : 4,
+      "categories" : 16,
+      "notifications" : 0,
+      "users" : 1
+    },
+    "generatedAt" : [ 2025, 12, 17, 12, 39, 9, 652670200 ],
+    "adminId" : null,
+    "generatedBy" : "system@backup"
+  },
+  "users" : [ {
+    "id" : 1,
+    "email" : "vol124018@gmail.com",
+    "password" : "$2a$12$Z.YTMFkx11p0MlfudSHIj.3CUDrIPH0VtgW.LcFTwdYxinjjT99pm",
+    "fullName" : "Võ Thành Long",
+    "phone" : "0869472282",
+    "avatar" : null,
+    "status" : "ACTIVE",
+    "role" : "ADMIN",
+    "twoFactorEnabled" : false,
+    "twoFactorSecret" : null,
+    "lockedUntil" : null,
+    "failedLoginAttempts" : 0,
+    "language" : "vi",
+    "theme" : "light",
+    "createdAt" : [ 2025, 12, 11, 20, 38, 19 ],
+    "updatedAt" : [ 2025, 12, 12, 4, 23, 57 ]
+  } ],
+  "categories" : [ {
+    "id" : 1,
+    "name" : "Ăn uống",
+    "icon" : "burger",
+    "color" : "#F87171",
+    "type" : "expense",
+    "description" : "Cơm, trà sữa, ăn vặt",
+    "systemDefault" : true,
+    "sortOrder" : 1,
+    "deleted" : false,
+    "createdAt" : [ 2025, 12, 11, 10, 29, 51 ],
+    "updatedAt" : [ 2025, 12, 11, 10, 29, 51 ],
+    "transactions"

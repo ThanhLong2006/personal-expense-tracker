@@ -1,0 +1,53 @@
+{
+  "name": "Quản Lý Chi Tiêu Cá Nhân",
+  "short_name": "QLCTCN",
+  "description": "Ứng dụng quản lý chi tiêu cá nhân hiện đại và tiện lợi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "productivity"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Thêm giao dịch",
+      "short_name": "Thêm",
+      "description": "Thêm giao dịch mới",
+      "url": "/transactions?action=add",
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Xem báo cáo",
+      "short_name": "Báo cáo",
+      "description": "Xem báo cáo chi tiêu",
+      "url": "/reports",
+      "icons": [{ "src": "/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ],
+  "share_target": {
+    "action": "/transactions",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
+

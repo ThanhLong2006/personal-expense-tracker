@@ -1,0 +1,46 @@
+{
+  "common": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "create": "Tạo mới",
+    "update": "Cập nhật",
+    "search": "Tìm kiếm",
+    "filter": "Lọc",
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "confirm": "Xác nhận",
+    "close": "Đóng"
+  },
+  "auth": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "register": "Đăng ký",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu",
+    "resetPassword": "Đặt lại mật khẩu"
+  },
+  "transaction": {
+    "title": "Giao dịch",
+    "create": "Tạo giao dịch",
+    "update": "Cập nhật giao dịch",
+    "delete": "Xóa giao dịch",
+    "amount": "Số tiền",
+    "date": "Ngày",
+    "category": "Danh mục",
+    "note": "Ghi chú",
+    "location": "Địa điểm",
+    "receipt": "Hóa đơn"
+  },
+  "dashboard": {
+    "title": "Trang chủ",
+    "totalExpense": "Tổng chi tiêu",
+    "thisMonth": "Tháng này",
+    "thisWeek": "Tuần này",
+    "today": "Hôm nay"
+  }
+}
+

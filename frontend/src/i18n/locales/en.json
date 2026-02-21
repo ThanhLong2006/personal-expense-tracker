@@ -1,0 +1,46 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "search": "Search",
+    "filter": "Filter",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "close": "Close"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password",
+    "resetPassword": "Reset Password"
+  },
+  "transaction": {
+    "title": "Transactions",
+    "create": "Create Transaction",
+    "update": "Update Transaction",
+    "delete": "Delete Transaction",
+    "amount": "Amount",
+    "date": "Date",
+    "category": "Category",
+    "note": "Note",
+    "location": "Location",
+    "receipt": "Receipt"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "totalExpense": "Total Expense",
+    "thisMonth": "This Month",
+    "thisWeek": "This Week",
+    "today": "Today"
+  }
+}
+
