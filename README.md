@@ -1,3 +1,4 @@
+
 # QUANLYCANHAN — Ứng Dụng Quản Lý Chi Tiêu Cá Nhân
 
 Phiên bản README chuyên nghiệp tập trung vào hướng dẫn thiết lập, build và chạy ứng dụng (backend + frontend) bằng Docker hoặc trong môi trường phát triển.
@@ -210,4 +211,8 @@ Nếu bạn muốn, tôi có thể giúp:
 - Chạy build hoặc kiểm thử CI locally
 
 Hãy cho biết bạn muốn bước tiếp theo nào.
+
+=======
+# personal-expense-tracker
+Powerful personal finance manager. Track expenses, income, budgets, and gain insights into your spending habits with charts &amp; reports.
 

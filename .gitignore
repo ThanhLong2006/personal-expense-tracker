@@ -52,4 +52,7 @@ truststore.jks
 *.swp
 *.swo
 *.bak
+
+*.tmp
+=======
 *.tmp
