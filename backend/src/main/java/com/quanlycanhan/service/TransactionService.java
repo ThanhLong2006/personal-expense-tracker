@@ -71,7 +71,7 @@ public class TransactionService {
      * Tạo giao dịch mới
      */
     @Transactional
-    @org.springframework.cache.annotation.CacheEvict(value = {"totalAmount", "totalByCategory"}, key = "#userId")
+    @org.springframework.cache.annotation.CacheEvict(value = {"totalAmount", "totalByCategory", "aiPrediction"}, key = "#userId")
     public Transaction createTransaction(Long userId, Long categoryId, BigDecimal amount,
                                        LocalDate transactionDate, String note, String location,
                                        String receiptImage, Transaction.CreatedBy createdBy, Long createdByAdminId) {
@@ -106,7 +106,7 @@ public class TransactionService {
      * Cập nhật giao dịch
      */
     @Transactional
-    @org.springframework.cache.annotation.CacheEvict(value = {"totalAmount", "totalByCategory"}, key = "#userId")
+    @org.springframework.cache.annotation.CacheEvict(value = {"totalAmount", "totalByCategory", "aiPrediction"}, key = "#userId")
     public Transaction updateTransaction(Long id, Long userId, Long categoryId, BigDecimal amount,
                                        LocalDate transactionDate, String note, String location,
                                        String receiptImage) {
@@ -152,7 +152,7 @@ public class TransactionService {
      * Xóa giao dịch
      */
     @Transactional
-    @org.springframework.cache.annotation.CacheEvict(value = {"totalAmount", "totalByCategory"}, key = "#userId")
+    @org.springframework.cache.annotation.CacheEvict(value = {"totalAmount", "totalByCategory", "aiPrediction"}, key = "#userId")
     public void deleteTransaction(Long id, Long userId) {
         Transaction transaction = getTransactionById(id, userId);
         

@@ -1,0 +1,52 @@
+global:
+  resolve_timeout: 5m
+
+# Cấu hình route - gửi alerts đến đâu
+route:
+  group_by: ['alertname', 'severity']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  receiver: 'default-receiver'
+  routes:
+    - match:
+        severity: critical
+      receiver: 'critical-receiver'
+      continue: true
+    - match:
+        severity: warning
+      receiver: 'warning-receiver'
+
+receivers:
+  - name: 'default-receiver'
+    # Có thể thêm webhook, slack, etc.
+
+  - name: 'critical-receiver'
+    # Email
+    # email_configs:
+    #   - to: 'admin@example.com'
+    #     from: 'alertmanager@example.com'
+    #     smarthost: 'smtp.gmail.com:587'
+    #     auth_username: '${SMTP_USER}'
+    #     auth_password: '${SMTP_PASSWORD}'
+    
+    # Telegram - Bật khi có bot token
+    # telegram_configs:
+    #   - bot_token: '${TELEGRAM_BOT_TOKEN}'
+    #     chat_id: ${TELEGRAM_CHAT_ID}
+    #     parse_mode: 'HTML'
+    #     message: '{{ template "telegram.default" . }}'
+
+  - name: 'warning-receiver'
+    # Tương tự - có thể dùng email hoặc Telegram
+    # email_configs: ...
+    # telegram_configs: ...
+
+# Inhibit - tránh spam khi nhiều alerts liên quan
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'instance']
+

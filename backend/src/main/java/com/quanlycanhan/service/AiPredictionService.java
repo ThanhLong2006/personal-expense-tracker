@@ -3,6 +3,7 @@ package com.quanlycanhan.service;
 import com.quanlycanhan.entity.Transaction;
 import com.quanlycanhan.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -26,7 +27,9 @@ public class AiPredictionService {
      * Dự đoán chi tiêu tháng tới
      * - Phân tích dữ liệu 6 tháng gần nhất
      * - Tính EMA và Linear Regression
+     * - Cache 1 giờ để giảm tải khi data lớn
      */
+    @Cacheable(value = "aiPrediction", key = "#userId")
     public PredictionResult predictNextMonth(Long userId) {
         LocalDate endDate = LocalDate.now();
         LocalDate startDate = endDate.minusMonths(6);

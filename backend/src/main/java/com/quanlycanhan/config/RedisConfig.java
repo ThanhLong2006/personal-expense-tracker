@@ -58,13 +58,20 @@ public class RedisConfig {
 
         GenericJackson2JsonRedisSerializer jsonSerializer = new GenericJackson2JsonRedisSerializer(mapper);
 
-        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+        RedisCacheConfiguration defaultConfig = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jsonSerializer))
-                .entryTtl(java.time.Duration.ofMinutes(30)); // Cache 30 phút
+                .entryTtl(java.time.Duration.ofMinutes(30)); // Cache 30 phút mặc định
+
+        // AI Prediction cache 1 giờ (giảm tải khi data lớn)
+        RedisCacheConfiguration aiPredictionConfig = RedisCacheConfiguration.defaultCacheConfig()
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jsonSerializer))
+                .entryTtl(java.time.Duration.ofHours(1));
 
         return RedisCacheManager.builder(connectionFactory)
-                .cacheDefaults(config)
+                .cacheDefaults(defaultConfig)
+                .withCacheConfiguration("aiPrediction", aiPredictionConfig)
                 .build();
     }
 }

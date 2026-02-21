@@ -4,12 +4,22 @@ global:
   external_labels:
     monitor: 'quanlycanhan-monitor'
 
+# Cấu hình Alertmanager
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['alertmanager:9093']
+
+# Load alert rules
+rule_files:
+  - '/etc/prometheus/alerts.yml'
+
 scrape_configs:
   # Spring Boot Actuator metrics
   - job_name: 'spring-boot'
-    metrics_path: '/actuator/prometheus'
+    metrics_path: '/api/actuator/prometheus'
     static_configs:
-      - targets: ['backend:8085']
+      - targets: ['backend:8084']
         labels:
           application: 'quanlycanhan-backend'
           environment: 'production'

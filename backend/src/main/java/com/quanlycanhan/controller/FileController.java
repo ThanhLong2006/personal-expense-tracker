@@ -3,6 +3,7 @@ package com.quanlycanhan.controller;
 import com.quanlycanhan.dto.response.ApiResponse;
 import com.quanlycanhan.service.FileStorageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -11,10 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStream;
 import java.nio.file.Path;
 
 /**
  * Controller xử lý upload/download file (ảnh hóa đơn)
+ * Hỗ trợ cả Local storage và S3
  */
 @RestController
 @RequestMapping("/files")
@@ -41,36 +44,48 @@ public class FileController {
     }
 
     /**
-     * Download file theo URL
+     * Download file theo filename
+     * Hỗ trợ Local storage và S3
      */
     @GetMapping("/{filename}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
         try {
-            Path filePath = fileStorageService.getFilePath("/api/files/" + filename);
-            
-            if (filePath == null || !filePath.toFile().exists()) {
-                return ResponseEntity.notFound().build();
-            }
+            String url = "/api/files/" + filename;
+            String contentType = getContentType(filename);
 
-            Resource resource = new UrlResource(filePath.toUri());
-            
-            // Determine content type
-            String contentType = "application/octet-stream";
-            if (filename.toLowerCase().endsWith(".jpg") || filename.toLowerCase().endsWith(".jpeg")) {
-                contentType = MediaType.IMAGE_JPEG_VALUE;
-            } else if (filename.toLowerCase().endsWith(".png")) {
-                contentType = MediaType.IMAGE_PNG_VALUE;
-            } else if (filename.toLowerCase().endsWith(".gif")) {
-                contentType = MediaType.IMAGE_GIF_VALUE;
+            if (fileStorageService.isLocalStorage()) {
+                Path filePath = fileStorageService.getFilePath(url);
+                if (filePath == null || !filePath.toFile().exists()) {
+                    return ResponseEntity.notFound().build();
+                }
+                Resource resource = new UrlResource(filePath.toUri());
+                return ResponseEntity.ok()
+                        .contentType(MediaType.parseMediaType(contentType))
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\"")
+                        .body(resource);
+            } else {
+                // S3 storage - stream từ S3
+                InputStream stream = fileStorageService.getFileStream(url);
+                if (stream == null) {
+                    return ResponseEntity.notFound().build();
+                }
+                Resource resource = new InputStreamResource(stream);
+                return ResponseEntity.ok()
+                        .contentType(MediaType.parseMediaType(contentType))
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\"")
+                        .body(resource);
             }
-
-            return ResponseEntity.ok()
-                    .contentType(MediaType.parseMediaType(contentType))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\"")
-                    .body(resource);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
+    }
+
+    private String getContentType(String filename) {
+        String lower = filename.toLowerCase();
+        if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) return MediaType.IMAGE_JPEG_VALUE;
+        if (lower.endsWith(".png")) return MediaType.IMAGE_PNG_VALUE;
+        if (lower.endsWith(".gif")) return MediaType.IMAGE_GIF_VALUE;
+        return "application/octet-stream";
     }
 }
 
