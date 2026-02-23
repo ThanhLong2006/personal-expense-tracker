@@ -184,5 +184,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
      */
     @Query(value = "SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE deleted = 0", nativeQuery = true)
     Object getTotalAmountAllUsers();
+
+    /**
+     * Lấy danh sách user_id có giao dịch từ ngày given (cho AI cache pre-warm)
+     */
+    @Query("SELECT DISTINCT t.user.id FROM Transaction t WHERE t.deleted = false AND t.transactionDate >= :since")
+    List<Long> findDistinctUserIdsWithTransactionsSince(@Param("since") LocalDate since);
 }
 

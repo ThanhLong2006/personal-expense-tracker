@@ -1,0 +1,66 @@
+# Alertmanager Config Template
+# Chạy: ./scripts/generate-alertmanager-config.sh
+# Hoặc: envsubst < monitoring/alertmanager.yml.template > monitoring/alertmanager.yml
+
+global:
+  resolve_timeout: 5m
+
+route:
+  group_by: ['alertname', 'severity']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  receiver: 'default-receiver'
+  routes:
+    - match:
+        severity: critical
+      receiver: 'critical-receiver'
+      continue: true
+    - match:
+        severity: warning
+      receiver: 'warning-receiver'
+
+receivers:
+  - name: 'default-receiver'
+
+  - name: 'critical-receiver'
+    # Email - Uncomment và set SMTP_USER, SMTP_PASSWORD, ALERT_EMAIL trong .env
+    email_configs:
+      - to: '${ALERT_EMAIL:-admin@example.com}'
+        from: '${ALERT_FROM:-alertmanager@example.com}'
+        smarthost: '${SMTP_HOST:-smtp.gmail.com}:${SMTP_PORT:-587}'
+        auth_username: '${SMTP_USER}'
+        auth_password: '${SMTP_PASSWORD}'
+        headers:
+          Subject: '[CRITICAL] Quản Lý Chi Tiêu - {{ .GroupLabels.alertname }}'
+
+    # Telegram - Uncomment khi có TELEGRAM_BOT_TOKEN
+    telegram_configs:
+      - bot_token: '${TELEGRAM_BOT_TOKEN}'
+        chat_id: ${TELEGRAM_CHAT_ID}
+        parse_mode: 'HTML'
+        message: |
+          {{ if eq .Status "firing" }}🚨 *CRITICAL ALERT*
+          {{ range .Alerts }}
+          *{{ .Labels.alertname }}*
+          {{ .Annotations.description }}
+          Instance: {{ .Labels.instance }}
+          {{ end }}{{ end }}
+
+  - name: 'warning-receiver'
+    email_configs:
+      - to: '${ALERT_EMAIL:-admin@example.com}'
+        from: '${ALERT_FROM:-alertmanager@example.com}'
+        smarthost: '${SMTP_HOST:-smtp.gmail.com}:${SMTP_PORT:-587}'
+        auth_username: '${SMTP_USER}'
+        auth_password: '${SMTP_PASSWORD}'
+        headers:
+          Subject: '[WARNING] Quản Lý Chi Tiêu - {{ .GroupLabels.alertname }}'
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'instance']
+

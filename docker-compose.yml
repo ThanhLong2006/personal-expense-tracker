@@ -60,6 +60,8 @@ services:
       - SPRING_DATASOURCE_USERNAME=${DB_USER}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASS}
       - REDIS_HOST=${REDIS_HOST:-qlcn-redis}
+      # JVM Tuning: Override trong .env nếu server có RAM khác (vd: JAVA_OPTS=-Xmx1g)
+      - JAVA_OPTS=${JAVA_OPTS:--Xms256m -Xmx512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200}
     depends_on:
       mysql:
         condition: service_healthy # THÊM DÒNG NÀY – BẮT BUỘC!!!

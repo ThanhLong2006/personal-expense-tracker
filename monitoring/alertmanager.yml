@@ -1,7 +1,10 @@
+# Alertmanager - Cảnh báo khi server quá tải, lỗi 5xx
+# Để bật Telegram/Email: chạy ./scripts/generate-alertmanager-config.sh
+# sau khi set TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, SMTP_* trong .env
+
 global:
   resolve_timeout: 5m
 
-# Cấu hình route - gửi alerts đến đâu
 route:
   group_by: ['alertname', 'severity']
   group_wait: 30s
@@ -19,34 +22,32 @@ route:
 
 receivers:
   - name: 'default-receiver'
-    # Có thể thêm webhook, slack, etc.
+    # Thêm webhook, slack, etc. khi cần
 
   - name: 'critical-receiver'
-    # Email
+    # BẬT CẢNH BÁO: Uncomment và điền thông tin, hoặc dùng generate-alertmanager-config.sh
+    # Email (khi có SMTP_USER, SMTP_PASSWORD)
     # email_configs:
-    #   - to: 'admin@example.com'
-    #     from: 'alertmanager@example.com'
+    #   - to: 'admin@yourdomain.com'
+    #     from: 'alert@yourdomain.com'
     #     smarthost: 'smtp.gmail.com:587'
-    #     auth_username: '${SMTP_USER}'
-    #     auth_password: '${SMTP_PASSWORD}'
-    
-    # Telegram - Bật khi có bot token
+    #     auth_username: 'your-email@gmail.com'
+    #     auth_password: 'your-app-password'
+    #     headers:
+    #       Subject: '[CRITICAL] Quản Lý Chi Tiêu - {{ .GroupLabels.alertname }}'
+    #
+    # Telegram (khi có TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
     # telegram_configs:
-    #   - bot_token: '${TELEGRAM_BOT_TOKEN}'
-    #     chat_id: ${TELEGRAM_CHAT_ID}
+    #   - bot_token: 'YOUR_BOT_TOKEN'
+    #     chat_id: YOUR_CHAT_ID
     #     parse_mode: 'HTML'
-    #     message: '{{ template "telegram.default" . }}'
 
   - name: 'warning-receiver'
     # Tương tự - có thể dùng email hoặc Telegram
-    # email_configs: ...
-    # telegram_configs: ...
 
-# Inhibit - tránh spam khi nhiều alerts liên quan
 inhibit_rules:
   - source_match:
       severity: 'critical'
     target_match:
       severity: 'warning'
     equal: ['alertname', 'instance']
-

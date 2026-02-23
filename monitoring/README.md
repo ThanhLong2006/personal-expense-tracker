@@ -85,12 +85,23 @@ public class MyService {
 }
 ```
 
-## Alerting (Tùy chọn)
+## Alerting (Production)
 
-### Thiết lập Alertmanager
-1. Thêm Alertmanager vào docker-compose.yml
-2. Cấu hình alert rules trong Prometheus
-3. Thiết lập notification channels (Email, Slack, etc.)
+### Thiết lập Alertmanager - Cảnh báo Telegram/Email
+Khi server quá tải (CPU, RAM) hoặc lỗi 5xx, Alertmanager gửi thông báo:
+
+1. **Cách 1 - Chỉnh tay**: Sửa `monitoring/alertmanager.yml`, uncomment `email_configs` hoặc `telegram_configs`, điền thông tin
+2. **Cách 2 - Tự động**: Set biến môi trường trong `.env` rồi chạy:
+   ```bash
+   ./scripts/generate-alertmanager-config.sh   # Linux/Mac
+   scripts\generate-alertmanager-config.bat   # Windows
+   ```
+
+**Biến môi trường cần thiết:**
+- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` - Cho Telegram
+- `SMTP_USER`, `SMTP_PASSWORD`, `ALERT_EMAIL` - Cho Email
+
+3. Khởi động lại Alertmanager: `docker-compose restart alertmanager`
 
 ### Alert Rules Example
 Tạo file `monitoring/prometheus/alerts.yml`:

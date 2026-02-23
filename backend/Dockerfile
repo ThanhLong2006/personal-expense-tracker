@@ -10,4 +10,9 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8085
-ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=docker"]
+
+# JVM Tuning: Điều chỉnh theo RAM server (Xmx = 50-70% RAM)
+# Override bằng JAVA_OPTS trong docker-compose: -Xms256m -Xmx512m
+ENV JAVA_OPTS="-Xms256m -Xmx512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+UseStringDeduplication"
+
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar --spring.profiles.active=docker"]

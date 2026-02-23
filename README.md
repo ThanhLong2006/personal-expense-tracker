@@ -53,35 +53,19 @@ Sau khi chạy:
 
 ## Cấu hình môi trường
 
+- Copy `env.example` thành `.env` và điền giá trị thực tế
+- **Production**: Xem chi tiết tại `docs/PRODUCTION_DEPLOYMENT.md`
+
 ### Backend
 
-- Copy hoặc tạo file cấu hình nếu cần: `backend/src/main/resources/application.yml`
-- Các biến quan trọng:
-  - `spring.datasource.*` — cấu hình kết nối MySQL
-  - `jwt.secret` — khóa JWT
-  - `spring.mail.username` / `spring.mail.password` — SMTP (nếu gửi email)
-  - `otp.enabled` — bật/tắt OTP (để test nhanh có thể false)
+- Các biến quan trọng (set qua `.env` hoặc biến môi trường):
+  - `JWT_SECRET` — khóa JWT (tối thiểu 32 ký tự). Generate: `openssl rand -base64 48`
+  - `MAIL_USERNAME` / `MAIL_PASSWORD` — SMTP (dùng AWS SES, SendGrid cho production)
+  - `CORS_ALLOWED_ORIGINS` — chỉ domain chính thức khi production
+  - `FILE_STORAGE_PROVIDER` — `s3` cho production (thay vì `local`)
+  - `OTP_ENABLED` — bật/tắt OTP (false để test nhanh)
 
-Ví dụ (tối giản):
-
-```yaml
-spring:
-  datasource:
-    url: jdbc:mysql://mysql:3306/quanlycanhan
-    username: root
-    password: example
-  mail:
-    username: your-email@gmail.com
-    password: your-app-password
-
-jwt:
-  secret: your-very-long-secret
-
-otp:
-  enabled: true
-```
-
-> Lưu ý: Khi chạy bằng Docker Compose, các biến kết nối thường được cung cấp qua `docker-compose.yml`.
+> **Lưu ý bảo mật**: KHÔNG hardcode mật khẩu trong code. Dùng biến môi trường hoặc Docker Secrets.
 
 ### Frontend
 

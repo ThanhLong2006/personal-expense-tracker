@@ -43,8 +43,8 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // Không đặt "*" làm default ở đây. Nếu cần wildcard, cấu hình qua application.yml / biến môi trường.
-    @Value("${cors.allowed-origins:http://localhost:5173,https://*.ngrok-free.app,https://*.ngrok.io}")
+    // Production: CHỈ cho phép domain chính thức. Dev: thêm ngrok qua CORS_ALLOWED_ORIGINS
+    @Value("${cors.allowed-origins:http://localhost:5173,http://localhost:3000}")
     private String allowedOrigins;
 
     @Value("${cors.allowed-methods:GET,POST,PUT,DELETE,OPTIONS,PATCH}")
@@ -117,9 +117,12 @@ public class SecurityConfig {
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.toList());
 
-        // Nếu có "*", cho phép tất cả (test public)
+        // Nếu có "*", cho phép tất cả (CHỈ dùng cho test!)
         if (origins.contains("*")) {
             config.setAllowedOriginPatterns(List.of("*"));
+        } else if (origins.stream().anyMatch(o -> o.contains("*"))) {
+            // Có pattern (vd: *.ngrok-free.app) → dùng AllowedOriginPatterns
+            config.setAllowedOriginPatterns(origins);
         } else {
             config.setAllowedOrigins(origins);
         }

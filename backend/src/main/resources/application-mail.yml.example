@@ -1,0 +1,32 @@
+# ============================================
+# CẤU HÌNH EMAIL - Production Ready
+# ============================================
+# Copy nội dung tương ứng vào application.yml hoặc set biến môi trường
+# KHÔNG dùng Gmail cá nhân cho production (giới hạn, dễ vào spam)
+
+# --- Option 1: AWS SES (Khuyến nghị) ---
+# MAIL_HOST=email-smtp.ap-southeast-1.amazonaws.com
+# MAIL_PORT=587
+# MAIL_USERNAME=<SES SMTP username>
+# MAIL_PASSWORD=<SES SMTP password>
+# spring.mail.properties.mail.smtp.auth=true
+# spring.mail.properties.mail.smtp.starttls.enable=true
+
+# --- Option 2: SendGrid ---
+# MAIL_HOST=smtp.sendgrid.net
+# MAIL_PORT=587
+# MAIL_USERNAME=apikey
+# MAIL_PASSWORD=<SendGrid API Key>
+
+# --- Option 3: Mailgun ---
+# MAIL_HOST=smtp.mailgun.org
+# MAIL_PORT=587
+# MAIL_USERNAME=<Mailgun SMTP username>
+# MAIL_PASSWORD=<Mailgun SMTP password>
+
+# --- Option 4: Gmail (CHỈ dùng cho dev/test) ---
+# MAIL_HOST=smtp.gmail.com
+# MAIL_PORT=587
+# MAIL_USERNAME=your-email@gmail.com
+# MAIL_PASSWORD=<App Password - KHÔNG dùng mật khẩu đăng nhập>
+
