@@ -37,7 +37,7 @@ receivers:
     # Telegram - Uncomment khi có TELEGRAM_BOT_TOKEN
     telegram_configs:
       - bot_token: '${TELEGRAM_BOT_TOKEN}'
-        chat_id: ${TELEGRAM_CHAT_ID}
+        chat_id: ${TELEGRAM_CHAT_ID:-0}
         parse_mode: 'HTML'
         message: |
           {{ if eq .Status "firing" }}🚨 *CRITICAL ALERT*

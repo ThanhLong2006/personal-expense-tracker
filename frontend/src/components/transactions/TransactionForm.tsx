@@ -59,6 +59,7 @@ interface FormDataType {
 }
 
 interface TransactionMinimal {
+  id?: number;
   category?: { id?: number; type?: string } | null;
   amount?: number | string;
   transactionDate?: string;
@@ -99,8 +100,8 @@ const TransactionForm = ({
       : "",
     type:
       transaction &&
-      transaction.category &&
-      transaction.category.type === "income"
+        transaction.category &&
+        transaction.category.type === "income"
         ? "income"
         : "expense",
     amount: transaction?.amount || "",
@@ -158,8 +159,8 @@ const TransactionForm = ({
             const list: Category[] = Array.isArray(old)
               ? (old as Category[])
               : ((old as Record<string, unknown>)?.data as Category[]) ||
-                (old as Category[]) ||
-                [];
+              (old as Category[]) ||
+              [];
             const exists = list.find((c: Category) => c.id === createdCat.id);
             if (exists) return list;
             return [...list, createdCat as Category];
@@ -397,17 +398,15 @@ const TransactionForm = ({
             onClick={() =>
               setFormData({ ...formData, type: "expense", categoryId: "" })
             }
-            className={`relative p-4 rounded-xl border-2 transition-all duration-200 ${
-              formData.type === "expense"
+            className={`relative p-4 rounded-xl border-2 transition-all duration-200 ${formData.type === "expense"
                 ? "border-red-500 bg-red-50 shadow-md"
                 : "border-slate-200 bg-white hover:border-red-300"
-            }`}
+              }`}
           >
             <div className="flex items-center gap-3">
               <div
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-                  formData.type === "expense" ? "bg-red-500" : "bg-slate-200"
-                }`}
+                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${formData.type === "expense" ? "bg-red-500" : "bg-slate-200"
+                  }`}
               >
                 <FaArrowDown
                   className={
@@ -419,11 +418,10 @@ const TransactionForm = ({
               </div>
               <div className="text-left">
                 <p
-                  className={`font-bold ${
-                    formData.type === "expense"
+                  className={`font-bold ${formData.type === "expense"
                       ? "text-red-600"
                       : "text-slate-600"
-                  }`}
+                    }`}
                 >
                   Chi tiêu
                 </p>
@@ -439,17 +437,15 @@ const TransactionForm = ({
             onClick={() =>
               setFormData({ ...formData, type: "income", categoryId: "" })
             }
-            className={`relative p-4 rounded-xl border-2 transition-all duration-200 ${
-              formData.type === "income"
+            className={`relative p-4 rounded-xl border-2 transition-all duration-200 ${formData.type === "income"
                 ? "border-green-500 bg-green-50 shadow-md"
                 : "border-slate-200 bg-white hover:border-green-300"
-            }`}
+              }`}
           >
             <div className="flex items-center gap-3">
               <div
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-                  formData.type === "income" ? "bg-green-500" : "bg-slate-200"
-                }`}
+                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${formData.type === "income" ? "bg-green-500" : "bg-slate-200"
+                  }`}
               >
                 <FaArrowUp
                   className={
@@ -459,11 +455,10 @@ const TransactionForm = ({
               </div>
               <div className="text-left">
                 <p
-                  className={`font-bold ${
-                    formData.type === "income"
+                  className={`font-bold ${formData.type === "income"
                       ? "text-green-600"
                       : "text-slate-600"
-                  }`}
+                    }`}
                 >
                   Thu nhập
                 </p>
@@ -484,9 +479,8 @@ const TransactionForm = ({
           <select
             title="Danh mục"
             aria-label="Danh mục"
-            className={`w-full pl-12 pr-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white ${
-              errors.categoryId ? "border-red-500" : "border-slate-200"
-            }`}
+            className={`w-full pl-12 pr-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white ${errors.categoryId ? "border-red-500" : "border-slate-200"
+              }`}
             value={formData.categoryId}
             onChange={(e) =>
               setFormData({ ...formData, categoryId: e.target.value })
@@ -551,9 +545,8 @@ const TransactionForm = ({
               <input
                 type="text"
                 className="flex-1 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder={`Tên danh mục ${
-                  formData.type === "expense" ? "chi" : "thu"
-                }...`}
+                placeholder={`Tên danh mục ${formData.type === "expense" ? "chi" : "thu"
+                  }...`}
                 value={newCategoryName}
                 onChange={(e) => setNewCategoryName(e.target.value)}
               />
@@ -597,9 +590,8 @@ const TransactionForm = ({
             type="number"
             title="Số tiền"
             aria-label="Số tiền"
-            className={`w-full pl-12 pr-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-lg font-semibold ${
-              errors.amount ? "border-red-500" : "border-slate-200"
-            }`}
+            className={`w-full pl-12 pr-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-lg font-semibold ${errors.amount ? "border-red-500" : "border-slate-200"
+              }`}
             value={formData.amount}
             onChange={(e) =>
               setFormData({ ...formData, amount: e.target.value })
@@ -625,9 +617,8 @@ const TransactionForm = ({
             type="date"
             title="Ngày giao dịch"
             aria-label="Ngày giao dịch"
-            className={`w-full pl-12 pr-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
-              errors.transactionDate ? "border-red-500" : "border-slate-200"
-            }`}
+            className={`w-full pl-12 pr-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${errors.transactionDate ? "border-red-500" : "border-slate-200"
+              }`}
             value={formData.transactionDate}
             onChange={(e) =>
               setFormData({ ...formData, transactionDate: e.target.value })

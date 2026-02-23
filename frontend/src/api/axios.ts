@@ -19,7 +19,8 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   return config
 })
 
-// Refresh token – KHÔNG DÙNG any, KHÔNG LOOP, KHÔNG BỊ ĐÁ
+// Refresh token – Dùng HttpOnly Cookie (nếu được bật ở backend)
+// Khi dùng HttpOnly Cookie, trình duyệt sẽ tự gởi cookie đính kèm nhờ withCredentials: true
 let isRefreshing = false
 let refreshSubscribers: ((token: string) => void)[] = []
 
@@ -32,6 +33,8 @@ const onRefreshed = (token: string) => {
   refreshSubscribers = []
 }
 
+api.defaults.withCredentials = true // Cần thiết để gửi/nhận cookie qua CORS
+
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
@@ -39,7 +42,6 @@ api.interceptors.response.use(
 
     if (error.response?.status === 401 && originalConfig && !originalConfig._retry) {
       if (isRefreshing) {
-        // Đang refresh → chờ
         return new Promise(resolve => {
           subscribeTokenRefresh((token: string) => {
             originalConfig.headers.setAuthorization(`Bearer ${token}`)
@@ -51,33 +53,35 @@ api.interceptors.response.use(
       originalConfig._retry = true
       isRefreshing = true
 
+      // Khi dùng HttpOnly Cookie, backend sẽ lấy tokens từ cookie. 
+      // Tuy nhiên interface vẫn hỗ trợ gửi token qua params để tương thích ngược.
       const refreshToken = useAuthStore.getState().refreshToken
-      if (refreshToken) {
-        try {
-          const res = await axios.post<{ data?: { token?: string }; token?: string }>(
-            `${baseURL}/auth/refresh`,
-            null,
-            { params: { refreshToken } }
-          )
 
-          const newToken = res.data?.data?.token || res.data?.token
-          if (newToken) {
-            useAuthStore.getState().updateAccessToken(newToken)
-            originalConfig.headers.setAuthorization(`Bearer ${newToken}`)
-            onRefreshed(newToken)
-            isRefreshing = false
-            return api(originalConfig)
+      try {
+        const res = await axios.post<{ data?: { token?: string }; token?: string }>(
+          `${baseURL}/auth/refresh`,
+          null,
+          {
+            params: refreshToken ? { refreshToken } : {}, // Gửi nếu có (localStorage), nếu không backend sẽ tự tìm trong Cookie
+            withCredentials: true
           }
-        } catch {
-          // Refresh thất bại
+        )
+
+        const newToken = res.data?.data?.token || res.data?.token
+        if (newToken) {
+          useAuthStore.getState().updateAccessToken(newToken)
+          originalConfig.headers.setAuthorization(`Bearer ${newToken}`)
+          onRefreshed(newToken)
+          isRefreshing = false
+          return api(originalConfig)
         }
+      } catch (err) {
+        console.error('Refresh token failed:', err)
       }
 
       // Thất bại hoàn toàn → logout
       isRefreshing = false
       useAuthStore.getState().logout()
-      // Optional: Redirect to login if not already handled by store/router
-      // window.location.href = '/login' 
       return Promise.reject(error)
     }
 

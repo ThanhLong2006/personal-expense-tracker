@@ -42,10 +42,10 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
 
       // Set authentication (sau khi login thành công)
-      setAuth: (token: string, user: User, refreshToken?: string | null) => {
+      setAuth: (token: string, user: User, _refreshToken?: string | null) => {
         set({
           token,
-          refreshToken: refreshToken ?? null,
+          refreshToken: null, // Không lưu vào localStorage nữa, dùng Cookie
           user,
           isAuthenticated: true,
         })
@@ -64,6 +64,7 @@ export const useAuthStore = create<AuthState>()(
           user: null,
           isAuthenticated: false,
         })
+        // Xóa các thông tin nhạy cảm khác nếu cần
       },
 
       // Kiểm tra có phải admin không

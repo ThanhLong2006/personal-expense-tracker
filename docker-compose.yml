@@ -12,6 +12,11 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3307:3306"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
     volumes:
       - mysql_data:/var/lib/mysql
       - ./database/init:/docker-entrypoint-initdb.d
@@ -39,6 +44,11 @@ services:
     restart: unless-stopped
     ports:
       - "6379:6379"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 256M
     volumes:
       - redis_data:/data
     networks:
@@ -52,6 +62,11 @@ services:
     restart: unless-stopped
     ports:
       - "8085:8084"
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 768M
     profiles: ["docker"]
     env_file:
       - ./.env
@@ -76,6 +91,11 @@ services:
     restart: unless-stopped
     ports:
       - "9090:9090"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
     volumes:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./monitoring/prometheus/alerts.yml:/etc/prometheus/alerts.yml
@@ -96,6 +116,11 @@ services:
     restart: unless-stopped
     ports:
       - "9093:9093"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 128M
     volumes:
       - ./monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml
     command:
@@ -110,6 +135,11 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
@@ -131,6 +161,11 @@ services:
     restart: unless-stopped
     ports:
       - "3100:3100"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
     volumes:
       - ./monitoring/loki-config.yml:/etc/loki/local-config.yaml
       - loki_data:/loki
@@ -143,6 +178,11 @@ services:
     image: grafana/promtail:latest
     container_name: qlcn-promtail
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 128M
     volumes:
       - ./monitoring/promtail-config.yml:/etc/promtail/config.yml
       - ./backend/logs:/var/log/quanlycanhan:ro
