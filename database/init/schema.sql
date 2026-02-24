@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     amount DECIMAL(15,2) NOT NULL,
     transaction_date DATE NOT NULL,
     note VARCHAR(500),
-    receipt_image LONGTEXT,
+    receipt_image VARCHAR(500),
     location VARCHAR(200),
     created_by ENUM('USER','ADMIN') NOT NULL DEFAULT 'USER',
     created_by_admin_id BIGINT,
@@ -112,15 +112,4 @@ INSERT IGNORE INTO categories (name, type, icon, color, description, system_defa
     ('Khác','expense', '⋯','#6B7280', 'Chi tiêu khác', 1, 99, 0);
 
 
---- Xem category
-SELECT * FROM categories;
-
---- Xem user
-SELECT*FROM users;
-
---- Thêm tài khoản admin mặc định
--- Mật khẩu đã được băm sử dụng bcrypt
-INSERT INTO users (email, password, full_name, phone, status, role, language, theme) VALUES
-('adminquanlycanhan@gmail.com', '$2b$10$yHgzOEprOtsW71Hj1cwXyugta3LuGQfj.dYbFM8hJYn/pFwA45TZK', 'Quản Trị Viên', '0901234567', 'ACTIVE', 'ADMIN', 'vi', 'light');
--- Lưu ý: Mật khẩu ban đầu là "admin@123".
 

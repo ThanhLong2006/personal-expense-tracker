@@ -127,7 +127,7 @@ public class BackupService {
         try {
             Path directory = Paths.get(backupDirectory);
             if (!Files.exists(directory)) {
-                return List.of();
+                return java.util.Collections.emptyList();
             }
 
             return Files.list(directory)

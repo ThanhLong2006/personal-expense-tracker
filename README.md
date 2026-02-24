@@ -1,5 +1,5 @@
 
-# QUANLYCANHAN — Ứng Dụng Quản Lý Chi Tiêu Cá Nhân
+# QUANLYCANHAN — Phần Mềm Quản Lý Chi Tiêu Cá Nhân
 
 Phiên bản README chuyên nghiệp tập trung vào hướng dẫn thiết lập, build và chạy ứng dụng (backend + frontend) bằng Docker hoặc trong môi trường phát triển.
 
@@ -188,13 +188,6 @@ Khi OTP bị tắt:
 MIT
 
 ---
-
-Nếu bạn muốn, tôi có thể giúp:
-- Tạo file cấu hình `application.yml` mẫu cho backend
-- Tạo `.env` mẫu cho frontend
-- Chạy build hoặc kiểm thử CI locally
-
-Hãy cho biết bạn muốn bước tiếp theo nào.
 
 =======
 # personal-expense-tracker

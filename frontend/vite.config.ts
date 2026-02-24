@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
   // Load env file – BẮT BUỘC PHẢI CÓ DÒNG NÀY ĐỂ VITE ĐỌC .env +
   const env = loadEnv(mode, process.cwd(), '')
 
-  // IN RA ĐỂ BẠN THẤY NGAY TRONG TERMINAL KHI CHẠY npm run dev
+  // IN RA ĐỂ THẤY NGAY TRONG TERMINAL KHI CHẠY npm run dev
   console.log('VITE_API_URL:', env.VITE_API_URL || 'CHƯA CÓ .env – ĐANG DÙNG DEFAULT')
 
   return {
@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => {
         manifest: {
           name: 'Quản Lý Chi Tiêu Cá Nhân',
           short_name: 'QLCTCN',
-          description: 'Ứng dụng quản lý chi tiêu cá nhân hiện đại và tiện lợi',
+          description: 'Phần mềm quản lý chi tiêu cá nhân hiện đại và tiện lợi',
           theme_color: '#3b82f6',
           background_color: '#ffffff',
           display: 'standalone',
@@ -113,16 +113,3 @@ export default defineConfig(({ mode }) => {
     },
   }
 })
-// # Bật MySQL + Redis lên trước (chỉ cần chạy 1 lần)
-// docker-compose up -d mysql redis
-
-// # Đợi 10-15 giây để MySQL khởi động xong (rất quan trọng!)
-// timeout /t 15
-
-// # Sau đó mới chạy backend bên vs code hoặc terminal khác
-//mvn spring-boot:run -Dspring-boot.run.profiles=localdocker
-//  thì phải dừng bên docker lại rồi chạy lại lệnh trên
- // docker stop qlcn-backend
-// # Cuối cùng chạy frontend
-// cd frontend
-// npm run dev

@@ -1,4 +1,4 @@
-# Luồng Đi Chi Tiết Dự Án Quản Lý Cá Nhân
+# Luồng Đi Chi Tiết Dự Án Quản Lý chi tiêu Cá Nhân
 
 Mục tiêu: mô tả đầy đủ cách hệ thống vận hành từ khi người dùng truy cập đến khi dữ liệu được xử lý và trả về; bao gồm frontend, backend, bảo mật, caching, database, Nginx, và triển khai. Tài liệu này giúp bạn nắm rõ dòng chảy của request/response, các lớp chịu trách nhiệm, dữ liệu qua các tầng, và các tối ưu hiệu năng/bảo mật đã áp dụng.
 

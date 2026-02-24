@@ -119,7 +119,7 @@ public class SecurityConfig {
 
         // Nếu có "*", cho phép tất cả (CHỈ dùng cho test!)
         if (origins.contains("*")) {
-            config.setAllowedOriginPatterns(List.of("*"));
+            config.setAllowedOriginPatterns(Arrays.asList("*"));
         } else if (origins.stream().anyMatch(o -> o.contains("*"))) {
             // Có pattern (vd: *.ngrok-free.app) → dùng AllowedOriginPatterns
             config.setAllowedOriginPatterns(origins);

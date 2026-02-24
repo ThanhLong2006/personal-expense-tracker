@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     amount DECIMAL(15,2) NOT NULL,
     transaction_date DATE NOT NULL,
     note VARCHAR(500),
-    receipt_image LONGTEXT,
+    receipt_image VARCHAR(500),
     location VARCHAR(200),
     created_by ENUM('USER','ADMIN') NOT NULL DEFAULT 'USER',
     created_by_admin_id BIGINT,

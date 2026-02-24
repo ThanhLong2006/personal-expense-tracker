@@ -7,7 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +42,7 @@ public class TransactionController {
     private final TransactionService transactionService;
     private final SecurityUtil securityUtil;
     private final TransactionMapper transactionMapper;
+    private final com.quanlycanhan.service.FileStorageService fileStorageService;
 
     /**
      * Lấy danh sách giao dịch của user (phân trang)
@@ -180,6 +184,19 @@ public class TransactionController {
         Long userId = securityUtil.getUserId(authentication);
         BigDecimal total = transactionService.getTotalAmount(userId, startDate, endDate);
         return ResponseEntity.ok(ApiResponse.success(total));
+    }
+
+    /**
+     * Upload a receipt image file. Returns a URL path that can be stored in `receipt_image` column.
+     * Frontend should call this endpoint with multipart/form-data and then send returned URL in transaction payload.
+     */
+    @PostMapping(value = "/upload-receipt", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse<String>> uploadReceipt(@RequestPart("file") MultipartFile file) throws Exception {
+        if (file == null || file.isEmpty()) {
+            return ResponseEntity.badRequest().body(ApiResponse.error("No file uploaded"));
+        }
+        String url = fileStorageService.storeReceipt(file);
+        return ResponseEntity.ok(ApiResponse.success(url));
     }
 
     /**
