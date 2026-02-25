@@ -64,4 +64,9 @@ public class FileStorageService {
     public boolean isLocalStorage() {
         return storageProvider.isLocal();
     }
+
+    public String storeReceipt(MultipartFile file) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'storeReceipt'");
+    }
 }
