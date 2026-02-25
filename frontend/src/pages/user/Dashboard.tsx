@@ -1301,26 +1301,6 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {/* EMERGENCY FIX BUTTON - TODO: Remove after fix */}
-      <div className="flex justify-end mt-2">
-        <button
-          onClick={async () => {
-            try {
-              await api.post("/admin/system/fix-schema");
-              toast.success("Database fix applied! Please refresh.");
-            } catch (e) {
-              toast.error("Fix failed (Requires Admin)");
-            }
-          }}
-          // Đã bỏ opacity-50 và chuyển text thành màu error (đỏ) hoặc slate-500 để rõ hơn
-          className="btn btn-ghost btn-xs text-error/70 hover:text-error hover:bg-error/10 transition-all gap-1"
-        >
-          <FaWrench size={10} />
-          <span className="text-[10px] font-semibold uppercase tracking-wider">
-            Fix DB Schema
-          </span>
-        </button>
-      </div>
 
       {/* Charts Section */}
       <AnimatePresence>

@@ -22,6 +22,7 @@ const TransactionsPage: React.FC = () => {
     createMutation,
     updateMutation,
     deleteMutation,
+    bulkDeleteMutation,
   } = useTransactions();
 
   // Local UI States
@@ -142,7 +143,15 @@ const TransactionsPage: React.FC = () => {
           toggleSelectTransaction={toggleSelectTransaction}
           handleEdit={handleEdit}
           handleDelete={handleDelete}
-          handleBulkDelete={() => { }} // TODO: implement later
+          handleBulkDelete={() => {
+            if (selectedTransactions.length === 0) return;
+            bulkDeleteMutation.mutate(selectedTransactions, {
+              onSettled: () => {
+                setSelectedTransactions([]);
+                setSelectAll(false);
+              }
+            });
+          }}
           setShowAddModal={setShowAddModal}
         />
       </div>

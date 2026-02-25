@@ -94,9 +94,10 @@ export const useTransactions = () => {
         },
     });
 
+    // bulk delete handles multiple ids at once (called from page)
     const bulkDeleteMutation = useMutation({
         mutationFn: async (ids: number[]) => {
-            await Promise.all(ids.map((id) => api.delete(`/transactions/${id}`)));
+            await Promise.all(ids.map(id => api.delete(`/transactions/${id}`)));
         },
         onSuccess: () => {
             toast.success("Đã xóa các giao dịch được chọn!");
@@ -107,6 +108,7 @@ export const useTransactions = () => {
             toast.error("Lỗi xóa giao dịch");
         },
     });
+
 
     // Handlers
     const applyQuickFilter = useCallback((filter: "today" | "week" | "month" | "year" | "all") => {
