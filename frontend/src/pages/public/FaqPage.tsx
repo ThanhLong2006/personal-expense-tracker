@@ -16,7 +16,7 @@ import {
 
 const faqs = [
   {
-    question: "Ứng dụng MeMe có hoàn toàn miễn phí không?",
+    question: "phần mềm MeMe có hoàn toàn miễn phí không?",
     answer:
       "Gói Free của MeMe hoàn toàn miễn phí mãi mãi — bao gồm ghi chép không giới hạn, thống kê biểu đồ, danh mục tùy chỉnh và đồng bộ đa thiết bị. Bạn chỉ trả phí khi muốn mở khóa các tính năng nâng cao như AI dự đoán, OCR quét hóa đơn, báo cáo PDF chuyên nghiệp hoặc quản lý nhiều tài khoản doanh nghiệp.",
     category: "pricing",
@@ -31,7 +31,7 @@ const faqs = [
     icon: <FileText className="w-5 h-5" />,
   },
   {
-    question: "Dữ liệu tài chính của tôi được bảo mật như thế nào?",
+    question: "Dữ liệu chi tiêu của tôi được bảo mật như thế nào?",
     answer:
       "Chúng tôi sử dụng mã hóa end-to-end AES-256 (chuẩn ngân hàng), lưu trữ trên cloud riêng tại Việt Nam, hỗ trợ 2FA + OTP qua email/SMS, tự động backup mỗi 6 giờ và cho phép bạn xuất toàn bộ dữ liệu bất kỳ lúc nào. Không bên thứ ba nào (kể cả nhân viên MeMe) có thể xem được dữ liệu của bạn.",
     category: "security",
@@ -55,7 +55,7 @@ const faqs = [
   {
     question: "Làm sao để liên hệ hỗ trợ khi gặp vấn đề?",
     answer:
-      "Chúng tôi hỗ trợ 24/7 qua chat trực tiếp trong ứng dụng (góc dưới bên phải), email support@meme.app hoặc hotline 1800-888-999 (miễn phí). 92% câu hỏi được giải quyết trong vòng 5 phút.",
+      "Chúng tôi hỗ trợ 24/7 qua chat trực tiếp trong phần mềm (góc dưới bên phải), email support@meme.app hoặc hotline 1800-888-999 (miễn phí). 92% câu hỏi được giải quyết trong vòng 5 phút.",
     category: "general",
     icon: <HelpCircle className="w-5 h-5" />,
   },

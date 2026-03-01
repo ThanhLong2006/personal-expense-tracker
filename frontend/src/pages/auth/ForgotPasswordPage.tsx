@@ -113,7 +113,7 @@ const ForgotPasswordPage = () => {
         {/* Footer nhỏ xinh */}
         <div className="text-center mt-8">
           <p className="text-sm text-slate-500">
-            © 2026 My Finance App. Quản lý tài chính thông minh.
+            © 2026 My Finance App. Quản lý phần mềm thông minh.
           </p>
         </div>
       </div>

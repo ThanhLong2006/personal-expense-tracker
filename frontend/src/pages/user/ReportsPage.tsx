@@ -210,7 +210,7 @@ const ReportsPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-[10px]">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2 text-slate-800 tracking-tight">
-            Báo cáo tài chính {year}
+            Báo cáo chi tiêu {year}
           </h1>
 
           <div className="flex items-center gap-2 group">
@@ -220,7 +220,7 @@ const ReportsPage: React.FC = () => {
             </span>
 
             <span className="text-[13px] font-medium text-slate-400">
-              Phân tích chi tiết tình hình tài chính
+              Phân tích chi tiết tình hình chi tiêu
             </span>
           </div>
         </div>

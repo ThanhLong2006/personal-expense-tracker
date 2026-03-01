@@ -597,7 +597,7 @@ const ContactPage = () => {
                       >
                         <option value="">Chọn chủ đề...</option>
                         <option>Hỏi về tính năng</option>
-                        <option>Báo lỗi ứng dụng</option>
+                        <option>Báo lỗi phần mềm</option>
                         <option>Đề xuất cải tiến</option>
                         <option>Hợp tác kinh doanh</option>
                         <option>Khác</option>

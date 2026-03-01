@@ -74,7 +74,7 @@ const sections = [
       "Bằng việc sử dụng Dịch vụ, bạn đồng ý với việc thu thập và sử dụng thông tin theo Chính sách Bảo mật của chúng tôi.",
       "Chúng tôi thu thập các loại thông tin sau:",
       "• Thông tin tài khoản (tên, email, số điện thoại)",
-      "• Dữ liệu giao dịch tài chính",
+      "• Dữ liệu giao dịch chi tiêu",
       "• Thông tin thiết bị và sử dụng",
       "• Dữ liệu vị trí (với sự đồng ý của bạn)",
       "Dữ liệu của bạn được mã hóa bằng mã hóa AES-256 tiêu chuẩn ngành và được lưu trữ an toàn trên máy chủ của chúng tôi đặt tại Việt Nam.",
@@ -161,7 +161,7 @@ const sections = [
     ],
     contentVi: [
       "Chúng tôi có quyền, theo quyết định riêng của mình, sửa đổi hoặc thay thế các Điều khoản này bất cứ lúc nào.",
-      "Nếu một sửa đổi là quan trọng, chúng tôi sẽ thông báo ít nhất 30 ngày trước khi bất kỳ điều khoản mới nào có hiệu lực thông qua thông báo trong ứng dụng và email.",
+      "Nếu một sửa đổi là quan trọng, chúng tôi sẽ thông báo ít nhất 30 ngày trước khi bất kỳ điều khoản mới nào có hiệu lực thông qua thông báo trong phần mềm và email.",
       "Những gì cấu thành một thay đổi quan trọng sẽ được xác định theo quyết định riêng của chúng tôi.",
       "Bằng việc tiếp tục truy cập hoặc sử dụng Dịch vụ của chúng tôi sau khi bất kỳ sửa đổi nào có hiệu lực, bạn đồng ý bị ràng buộc bởi các điều khoản được sửa đổi. Nếu bạn không đồng ý với các điều khoản mới, bạn không còn được phép sử dụng Dịch vụ.",
       "Chúng tôi khuyến nghị xem xét các Điều khoản này định kỳ để biết bất kỳ thay đổi nào.",

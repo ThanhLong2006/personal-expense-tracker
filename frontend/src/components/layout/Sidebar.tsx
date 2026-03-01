@@ -66,7 +66,7 @@ const Sidebar = ({ onOpenAddModal }: SidebarProps) => {
                   <h2 className="text-xl font-bold text-slate-800">
                     My Finance
                   </h2>
-                  <p className="text-xs text-slate-500">Quản lý tài chính</p>
+                  <p className="text-xs text-slate-500">Quản lý chi tiêu</p>
                 </div>
               </div>
             ) : (

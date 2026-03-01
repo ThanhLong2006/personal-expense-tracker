@@ -479,7 +479,7 @@ const LandingPage = () => {
                 Quản lý chi tiêu MeMe
               </h3>
               <p className="text-xl md:text-2xl text-white/90 leading-relaxed mb-8 max-w-2xl ml-16">
-                Quản lý tài chính cá nhân không dễ dàng, nhưng đội ngũ của chúng
+                Quản lý chi tiêu cá nhân không dễ dàng, nhưng đội ngũ của chúng
                 tôi luôn cố gắng giúp nó trở nên đơn giản hơn trong suốt chặng
                 đường 10 năm qua!
               </p>
@@ -755,7 +755,7 @@ const LandingPage = () => {
                 Tính Năng Nổi Bật
               </h2>
               <p className="text-gray-600 text-lg">
-                Việc quản lý tài chính trở nên tiện lợi với những tính năng đa
+                Việc quản lý chi tiêu trở nên tiện lợi với những tính năng đa
                 dạng của chúng tôi
               </p>
             </div>
@@ -1082,7 +1082,7 @@ const LandingPage = () => {
       <section className="py-16 bg-gradient-to-b from-[#001a4d] to-[#003380] text-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Vì sao bạn nên chọn sử dụng ứng dụng của MeMe?
+            Vì sao bạn nên chọn sử dụng phần mềm của MeMe?
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 max-w-7xl mx-auto">
@@ -1232,7 +1232,7 @@ const LandingPage = () => {
                   Tải ứng dụng Sổ thu chi MeMe
                 </h3>
                 <p className="mb-6 text-white-600 text-lg">
-                  Giải pháp quản lý tài chính thông minh của bạn.
+                  Giải pháp quản lý chi tiêu thông minh của bạn.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 mr-10  ">
                   <a

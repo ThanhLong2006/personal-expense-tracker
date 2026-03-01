@@ -394,7 +394,7 @@ const SettingsPage = () => {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Cài đặt</h1>
         <p className="text-gray-600">
-          Quản lý thông tin tài khoản và tùy chỉnh ứng dụng
+          Quản lý thông tin tài khoản và tùy chỉnh phần mềm
         </p>
       </div>
 
@@ -673,7 +673,7 @@ const SettingsPage = () => {
                             Bật huy hiệu thông báo chưa đọc
                           </h4>
                           <p className="text-sm text-gray-500 mt-1">
-                            Hiển thị huy hiệu đỏ trên biểu tượng ứng dụng khi
+                            Hiển thị huy hiệu đỏ trên biểu tượng phần mềm khi
                             bạn có tin nhắn chưa đọc
                           </p>
                         </div>
@@ -1111,10 +1111,10 @@ const SettingsPage = () => {
                           </div>
                           <div>
                             <h4 className="font-medium text-gray-900">
-                              Ứng dụng xác thực
+                              phần mềm xác thực
                             </h4>
                             <p className="text-sm text-gray-500">
-                              Sử dụng ứng dụng xác thực để tạo mã xác minh
+                              Sử dụng phần mềm xác thực để tạo mã xác minh
                             </p>
                           </div>
                         </div>

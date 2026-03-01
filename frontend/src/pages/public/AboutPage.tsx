@@ -82,13 +82,13 @@ const AboutPage = () => {
     {
       icon: Shield,
       title: "Bảo mật tuyệt đối",
-      desc: "Dữ liệu thu chi của bạn được mã hóa end-to-end, không lưu mật khẩu dạng text, hỗ trợ 2FA và OTP. Ngay cả đội ngũ MeMe cũng không thể xem được thông tin tài chính cá nhân của bạn.",
+      desc: "Dữ liệu thu chi của bạn được mã hóa end-to-end, không lưu mật khẩu dạng text, hỗ trợ 2FA và OTP. Ngay cả đội ngũ MeMe cũng không thể xem được thông tin chi tiêu cá nhân của bạn.",
       color: "from-cyan-500 to-blue-600",
     },
     {
       icon: Zap,
       title: "Đổi mới không ngừng",
-      desc: "Chúng tôi cập nhật AI dự đoán chi tiêu, phân tích thói quen và gợi ý tiết kiệm mới mỗi tháng – để bạn luôn có công cụ thông minh nhất hỗ trợ việc làm chủ tài chính.",
+      desc: "Chúng tôi cập nhật AI dự đoán chi tiêu, phân tích thói quen và gợi ý tiết kiệm mới mỗi tháng – để bạn luôn có công cụ thông minh nhất hỗ trợ việc làm chủ chi tiêu.",
       color: "from-purple-500 to-indigo-600",
     },
     {
@@ -106,7 +106,7 @@ const AboutPage = () => {
     {
       icon: Globe,
       title: "Tác động xã hội",
-      desc: "Mục tiêu của MeMe không chỉ là giúp bạn tiết kiệm vài triệu mỗi tháng, mà là góp phần xây dựng một thế hệ người Việt tự tin làm chủ tài chính, sống thoải mái và thịnh vượng hơn.",
+      desc: "Mục tiêu của MeMe không chỉ là giúp bạn tiết kiệm vài triệu mỗi tháng, mà là góp phần xây dựng một thế hệ người Việt tự tin làm chủ chi tiêu, sống thoải mái và thịnh vượng hơn.",
       color: "from-sky-500 to-blue-700",
     },
   ];
@@ -146,7 +146,7 @@ const AboutPage = () => {
     {
       year: "2025 Q1",
       title: "Thành lập MeMe",
-      desc: "6 người bạn cùng đam mê tài chính cá nhân",
+      desc: "6 người bạn cùng đam mê chi tiêu cá nhân",
       icon: Rocket,
     },
     {
@@ -164,7 +164,7 @@ const AboutPage = () => {
     {
       year: "2025 Q1",
       title: "50.000 người dùng",
-      desc: "Top 3 app tài chính Việt Nam",
+      desc: "Top 3 app chi tiêu Việt Nam",
       icon: TrendingUp,
     },
     {
@@ -298,7 +298,7 @@ const AboutPage = () => {
             </h1>
 
             <p className="text-2xl md:text-3xl font-light max-w-4xl mx-auto opacity-95 mb-8 leading-relaxed">
-              Ứng dụng quản lý tài chính cá nhân được yêu thích nhất Việt Nam
+              phần mềm quản lý chi tiêu cá nhân được yêu thích nhất Việt Nam
             </p>
 
             {/* Feature badges */}
@@ -386,8 +386,8 @@ const AboutPage = () => {
                 mọi người Việt Nam
               </span>
               <span> </span>
-              làm chủ tài chính cá nhân, thoát khỏi cảnh "lương về tay là hết"
-              và từng bước đạt được tự do tài chính thực sự.
+              làm chủ chi tiêu cá nhân, thoát khỏi cảnh "lương về tay là hết"
+              và từng bước đạt được tự do chi tiêu thực sự.
               <br />
               <br />
               Chúng tôi không bán giấc mơ giàu nhanh – chúng tôi mang đến một
@@ -407,7 +407,7 @@ const AboutPage = () => {
             <p className="text-xl text-gray-700 leading-relaxed">
               Trở thành{" "}
               <span className="text-[#0077FF] font-bold">
-                ứng dụng quản lý tài chính cá nhân số 1 Việt Nam
+                phần mềm quản lý chi tiêu cá nhân số 1 Việt Nam
               </span>
               <span> </span>
               – nơi hàng triệu người Việt mở điện thoại mỗi ngày để kiểm soát
@@ -439,15 +439,15 @@ const AboutPage = () => {
 
               <p className="text-lg text-gray-600 mt-8 leading-relaxed text-balance text-center">
                 Năm 2025, chúng tôi – một nhóm bạn trẻ Việt Nam mê công nghệ và
-                đau đáu chuyện tài chính cá nhân – nhận ra rằng hầu hết app hiện
+                đau đáu chuyện chi tiêu cá nhân – nhận ra rằng hầu hết app hiện
                 tại đều <strong>quá phức tạp, khô khan</strong> và
                 <strong> chẳng hiểu người Việt mình thật sự cần gì</strong>.
               </p>
 
               <p className="text-lg text-gray-600 mt-6 leading-relaxed text-balance text-center">
                 Thế là <span className="font-bold text-[#0077FF]">MeMe</span> ra
-                đời. Không chỉ là một ứng dụng ghi thu chi bình thường, MeMe là
-                <strong> người bạn đồng hành tài chính thông minh</strong> – tự
+                đời. Không chỉ là một phần mềm ghi thu chi bình thường, MeMe là
+                <strong> người bạn đồng hành chi tiêu thông minh</strong> – tự
                 động phân loại, nhắc nhở nhẹ nhàng, gợi ý tiết kiệm đúng lúc và
                 và giúp bạn từng ngày sống thoải mái hơn mà vẫn làm chủ được
                 đồng tiền.
@@ -469,7 +469,7 @@ const AboutPage = () => {
             Giá trị cốt lõi
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto text-center mb-12">
-            Chúng tôi không chỉ xây dựng một ứng dụng – chúng tôi đang thay đổi
+            Chúng tôi không chỉ xây dựng một phần mềm – chúng tôi đang thay đổi
             cách người Việt nghĩ về tiền bạc.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mt-4 ">
@@ -599,7 +599,7 @@ const AboutPage = () => {
             Bạn đã sẵn sàng cùng MeMe chưa?
           </h2>
           <p className="text-2xl mb-12 opacity-90">
-            Hàng chục nghìn người đã thay đổi tài chính nhờ MeMe
+            Hàng chục nghìn người đã thay đổi chi tiêu nhờ MeMe
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link

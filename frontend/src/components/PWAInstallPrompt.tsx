@@ -67,10 +67,10 @@ export default function PWAInstallPrompt() {
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-              Cài đặt ứng dụng
+              Cài đặt phần mềm
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-              Cài đặt ứng dụng để truy cập nhanh hơn và sử dụng offline
+              Cài đặt phần mềm để truy cập nhanh hơn và sử dụng offline
             </p>
             <div className="flex gap-2">
               <button

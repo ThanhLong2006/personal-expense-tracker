@@ -19,7 +19,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-gray-600 leading-relaxed max-w-xs">
-              Ứng dụng quản lý chi tiêu cá nhân thông minh và hiện đại nhất dành
+              phần mềm quản lý chi tiêu cá nhân thông minh và hiện đại nhất dành
               cho người Việt.
             </p>
             <div className="flex gap-3">

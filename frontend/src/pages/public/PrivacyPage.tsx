@@ -32,7 +32,7 @@ const sections = [
       },
       {
         en: "Device Information: IP address, browser type, device type, operating system, and app version.",
-        vi: "Thông tin thiết bị: Địa chỉ IP, loại trình duyệt, loại thiết bị, hệ điều hành và phiên bản ứng dụng.",
+        vi: "Thông tin thiết bị: Địa chỉ IP, loại trình duyệt, loại thiết bị, hệ điều hành và phiên bản phần mềm.",
       },
       {
         en: "Usage Data: System logs, feature usage patterns, and error reports to detect intrusions and improve service quality.",
@@ -52,7 +52,7 @@ const sections = [
     items: [
       {
         en: "To provide and maintain our expense management services, including processing your transactions and generating financial reports.",
-        vi: "Cung cấp và duy trì dịch vụ quản lý chi tiêu của chúng tôi, bao gồm xử lý giao dịch và tạo báo cáo tài chính.",
+        vi: "Cung cấp và duy trì dịch vụ quản lý chi tiêu của chúng tôi, bao gồm xử lý giao dịch và tạo báo cáo chi tiêu.",
       },
       {
         en: "To improve and optimize our services through analysis of anonymized usage patterns and AI algorithm enhancement.",
@@ -72,7 +72,7 @@ const sections = [
       },
       {
         en: "To personalize your experience and provide tailored financial insights based on your spending patterns.",
-        vi: "Cá nhân hóa trải nghiệm của bạn và cung cấp thông tin tài chính phù hợp dựa trên mô hình chi tiêu của bạn.",
+        vi: "Cá nhân hóa trải nghiệm của bạn và cung cấp thông tin chi tiêu phù hợp dựa trên mô hình chi tiêu của bạn.",
       },
     ],
   },
@@ -176,7 +176,7 @@ const sections = [
       },
       {
         en: "Transaction data is retained for a minimum of 7 years to comply with financial regulations and tax requirements.",
-        vi: "Dữ liệu giao dịch được lưu giữ tối thiểu 7 năm để tuân thủ các quy định tài chính và yêu cầu về thuế.",
+        vi: "Dữ liệu giao dịch được lưu giữ tối thiểu 7 năm để tuân thủ các quy định chi tiêu và yêu cầu về thuế.",
       },
       {
         en: "Deleted data is permanently removed from our active systems within 30 days, and from backups within 90 days.",
@@ -224,7 +224,7 @@ const sections = [
       },
       {
         en: "Material changes will be notified through in-app notifications and email at least 30 days before taking effect.",
-        vi: "Các thay đổi quan trọng sẽ được thông báo thông qua thông báo trong ứng dụng và email ít nhất 30 ngày trước khi có hiệu lực.",
+        vi: "Các thay đổi quan trọng sẽ được thông báo thông qua thông báo trong phần mềm và email ít nhất 30 ngày trước khi có hiệu lực.",
       },
       {
         en: "Your continued use of our services after policy updates constitutes acceptance of the revised policy.",

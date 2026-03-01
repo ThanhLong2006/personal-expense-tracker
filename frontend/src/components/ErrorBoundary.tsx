@@ -30,7 +30,7 @@ class ErrorBoundary extends React.Component<
           <div className="max-w-xl text-center">
             <h1 className="text-4xl font-bold mb-4">Có lỗi xảy ra</h1>
             <p className="mb-4">
-              Ứng dụng gặp sự cố khi hiển thị trang. Vui lòng thử tải lại hoặc
+              phần mềm gặp sự cố khi hiển thị trang. Vui lòng thử tải lại hoặc
               liên hệ quản trị viên.
             </p>
             <pre className="text-xs p-4 bg-base-200 rounded-md text-left overflow-auto">

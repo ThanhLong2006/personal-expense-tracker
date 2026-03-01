@@ -13,7 +13,7 @@ import {
 
 const featuredPost = {
   slug: "tu-het-tien-den-tu-do-tai-chinh",
-  title: "Từ “hết tiền trước lương” đến tự do tài chính chỉ trong 18 tháng",
+  title: "Từ “hết tiền trước lương” đến tự do chi tiêu chỉ trong 18 tháng",
   excerpt:
     "Câu chuyện thật của một cô gái 27 tuổi ở Sài Gòn: làm sao để từ lương 15 triệu/tháng xây dựng quỹ dự phòng 8 tháng và bắt đầu đầu tư chứng khoán — chỉ dùng duy nhất MeMe.",
   author: "Nguyễn Thảo Linh",
@@ -34,7 +34,7 @@ const posts = [
     slug: "ai-du-doan-chi-tieu-meme",
     title: "Công nghệ AI dự đoán chi tiêu của MeMe hoạt động như thế nào?",
     excerpt:
-      "Giải mã thuật toán đạt độ chính xác 94,7% đang giúp hàng triệu người Việt kiểm soát tài chính tốt hơn mỗi ngày.",
+      "Giải mã thuật toán đạt độ chính xác 94,7% đang giúp hàng triệu người Việt kiểm soát chi tiêu tốt hơn mỗi ngày.",
     author: "TS. Trần Quốc Minh",
     role: "Trưởng phòng AI • MeMe Labs",
     date: "25 tháng 11, 2025",
@@ -49,9 +49,9 @@ const posts = [
     title:
       "Zero-Based Budgeting: Bí quyết giúp tôi dư tiền dù lương chỉ 18 triệu",
     excerpt:
-      "Phương pháp phân bổ từng đồng một đang thay đổi hoàn toàn cách người trẻ Việt Nam quản lý tài chính.",
+      "Phương pháp phân bổ từng đồng một đang thay đổi hoàn toàn cách người trẻ Việt Nam quản lý chi tiêu.",
     author: "Phạm Khánh",
-    role: "Chuyên gia tài chính cá nhân",
+    role: "Chuyên gia chi tiêu cá nhân",
     date: "22 tháng 11, 2025",
     readTime: "11 phút đọc",
     likes: 35421,
@@ -76,9 +76,9 @@ const posts = [
   },
   {
     slug: "tuong-lai-tai-chinh-ca-nhan",
-    title: "Tương lai tài chính cá nhân không còn là ghi chép — mà là dự đoán",
+    title: "Tương lai chi tiêu cá nhân không còn là ghi chép — mà là dự đoán",
     excerpt:
-      "Tại sao các ứng dụng truyền thống đang dần biến mất, và tại sao AI-first như MeMe đang trở thành tiêu chuẩn toàn cầu.",
+      "Tại sao các phần mềm truyền thống đang dần biến mất, và tại sao AI-first như MeMe đang trở thành tiêu chuẩn toàn cầu.",
     author: "Alex Chen",
     role: "Partner • Sequoia Capital Southeast Asia",
     date: "18 tháng 11, 2025",
@@ -123,7 +123,7 @@ const BlogListPage = () => {
             </div>
 
             <h1 className="text-6xl md:text-8xl font-black leading-tight max-w-6xl mx-auto">
-              Kiến thức tài chính
+              Kiến thức chi tiêu
               <br />
               <span className="bg-gradient-to-r from-[#0055FF] to-[#00D4FF] bg-clip-text text-transparent">
                 thực tế & dễ áp dụng
@@ -131,7 +131,7 @@ const BlogListPage = () => {
             </h1>
 
             <p className="mt-10 text-2xl md:text-3xl text-gray-700 font-light max-w-4xl mx-auto leading-relaxed">
-              Hàng trăm câu chuyện thật, bài học sâu sắc và mẹo tài chính từ
+              Hàng trăm câu chuyện thật, bài học sâu sắc và mẹo chi tiêu từ
               cộng đồng MeMe — được kể một cách trung thực, không giáo điều.
             </p>
 

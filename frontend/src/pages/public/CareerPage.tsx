@@ -10,7 +10,7 @@ const openings = [
     description:
       "Xây dựng và tối ưu UI/UX cho dashboard người dùng, đảm bảo hiệu năng cao với React + Vite + Zustand.",
     longDetail:
-      "Bạn sẽ tham gia vào việc thiết kế và phát triển giao diện người dùng cho nền tảng quản lý tài chính cá nhân Meme. Công việc bao gồm xây dựng component tái sử dụng, tối ưu hoá hiệu năng, áp dụng best practices trong React 18, xử lý animation bằng Framer Motion, và đảm bảo tính ổn định cross-browser. Bạn cũng sẽ phối hợp chặt chẽ với team Backend & Product để đưa ra giải pháp UI tối ưu cho hàng triệu người dùng.",
+      "Bạn sẽ tham gia vào việc thiết kế và phát triển giao diện người dùng cho nền tảng quản lý chi tiêu cá nhân Meme. Công việc bao gồm xây dựng component tái sử dụng, tối ưu hoá hiệu năng, áp dụng best practices trong React 18, xử lý animation bằng Framer Motion, và đảm bảo tính ổn định cross-browser. Bạn cũng sẽ phối hợp chặt chẽ với team Backend & Product để đưa ra giải pháp UI tối ưu cho hàng triệu người dùng.",
     responsibilities: [
       "Xây dựng component tái sử dụng, tối ưu performance và accessibility.",
       "Viết unit/integration test và tham gia code review.",
@@ -54,7 +54,7 @@ const openings = [
     description:
       "Thiết kế trải nghiệm người dùng hiện đại, đảm bảo thống nhất brand guideline và accessibility.",
     longDetail:
-      "Bạn sẽ thiết kế toàn bộ workflow trải nghiệm người dùng từ wireframe → prototype → UI Final. Công việc bao gồm xây dựng Design System, thiết kế biểu đồ tài chính, tối ưu UX cho mobile-first, và làm việc chặt chẽ với team Frontend để đảm bảo UI pixel-perfect. Các công cụ sử dụng: Figma, Protopie, Notion.",
+      "Bạn sẽ thiết kế toàn bộ workflow trải nghiệm người dùng từ wireframe → prototype → UI Final. Công việc bao gồm xây dựng Design System, thiết kế biểu đồ chi tiêu, tối ưu UX cho mobile-first, và làm việc chặt chẽ với team Frontend để đảm bảo UI pixel-perfect. Các công cụ sử dụng: Figma, Protopie, Notion.",
     responsibilities: [
       "Thiết kế wireframe, prototype và design system.",
       "Thực hiện user research và usability testing.",

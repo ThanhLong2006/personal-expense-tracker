@@ -237,7 +237,7 @@ const FeaturesPage = () => {
       icon: Lock,
       title: "2FA TOTP",
       description:
-        "Bảo vệ tài khoản với xác thực 2 yếu tố qua Google Authenticator hoặc ứng dụng tương tự.",
+        "Bảo vệ tài khoản với xác thực 2 yếu tố qua Google Authenticator hoặc phần mềm tương tự.",
       color: "text-sky-700",
       bgColor: "bg-sky-60010",
       highlights: ["2FA", "TOTP", "Google Auth", "An toàn"],
@@ -474,7 +474,7 @@ const FeaturesPage = () => {
               Nhất 2025
             </h1>
             <p className="text-xl md:text-2xl font-light opacity-95 leading-relaxed max-w-3xl mx-auto mb-8">
-              Không chỉ là quản lý chi tiêu – Đây là trợ lý tài chính AI thông
+              Không chỉ là quản lý chi tiêu – Đây là trợ lý chi tiêu AI thông
               minh dành riêng cho bạn
             </p>
 
@@ -717,7 +717,7 @@ const FeaturesPage = () => {
             transition={{ duration: 0.7 }}
           >
             <h2 className="text-5xl md:text-7xl font-black mb-6 drop-shadow-2xl">
-              Sẵn sàng thay đổi tài chính của bạn?
+              Sẵn sàng thay đổi chi tiêu của bạn?
             </h2>
             <p className="text-2xl mb-10 opacity-95">
               Hàng triệu người đã tin dùng – Đến lượt bạn!
