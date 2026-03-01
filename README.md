@@ -1,10 +1,6 @@
 
 # QUANLYCANHAN — Phần Mềm Quản Lý Chi Tiêu Cá Nhân
 
-Phiên bản README chuyên nghiệp tập trung vào hướng dẫn thiết lập, build và chạy ứng dụng (backend + frontend) bằng Docker hoặc trong môi trường phát triển.
-
-**Ngôn ngữ:** Tiếng Việt
-
 ---
 
 **Tóm tắt:**
