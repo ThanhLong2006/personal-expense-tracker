@@ -2,7 +2,7 @@ define(['exports'], (function (exports) { 'use strict';
 
     // @ts-ignore
     try {
-      self['workbox:core:7.3.0'] &&  ();
+      self['workbox:core:7.3.0'] && _();
     } catch (e) {}
 
     /*

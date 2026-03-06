@@ -60,12 +60,12 @@ const VerifyOtpPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-cyan-500 via-blue-500 to-blue-700 px-4">
+    <div className="min-h-screen flex items-center justify-center  px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl">
         <div className="p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="mx-auto w-14 h-14 rounded-full bg-cyan-100 flex items-center justify-center mb-4">
+            <div className="mx-auto w-18 h-14 rounded-full bg-cyan-100 flex items-center justify-center mb-4">
               <svg
                 className="w-7 h-7 text-cyan-600"
                 fill="none"
@@ -85,17 +85,16 @@ const VerifyOtpPage = () => {
                 />
               </svg>
             </div>
-
             <h1 className="text-3xl font-bold text-gray-800">Xác thực OTP</h1>
-            <p className="text-gray-500 mt-2 text-sm">Mã OTP đã được gửi đến</p>
-            <p className="text-cyan-600 font-medium mt-1 break-all">{email}</p>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-2">
-                Mã OTP (6 chữ số)
+              <label className="block text-sm font-medium text-gray-600 mb-2 text-center">
+                Vui lòng nhập mã số chúng tôi đã gửi cho bạn qua email 
+                <p className=" font-medium mt-1 break-all">{email}.</p>
+                
               </label>
               <input
                 type="text"
@@ -144,14 +143,14 @@ const VerifyOtpPage = () => {
                 disabled:opacity-60
               "
             >
-              {resendMutation.isPending ? "Đang gửi lại..." : "Gửi lại mã OTP"}
+              {resendMutation.isPending ? "Đang gửi lại..." : " Gửi lại mã OTP"}
             </button>
           </div>
         </div>
 
         {/* Footer */}
         <div className="border-t px-8 py-4 text-center text-xs text-gray-500">
-          Bảo mật xác thực • OTP chỉ có hiệu lực trong thời gian ngắn
+          Bảo mật xác thực • OTP chỉ có giá trị trong 5 phút • Không chia sẻ mã OTP với bất kỳ ai
         </div>
       </div>
     </div>
