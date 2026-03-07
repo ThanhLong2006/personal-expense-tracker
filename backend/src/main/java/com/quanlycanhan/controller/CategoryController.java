@@ -65,7 +65,8 @@ public class CategoryController {
             request.getIcon(),
             request.getColor(),
             request.getDescription(),
-            request.getSortOrder()
+            request.getSortOrder(),
+            request.getParentId()
         );
         return ResponseEntity.ok(ApiResponse.success(category));
     }
@@ -88,7 +89,8 @@ public class CategoryController {
             request.getIcon(),
             request.getColor(),
             request.getDescription(),
-            request.getSortOrder()
+            request.getSortOrder(),
+            request.getParentId()
         );
         return ResponseEntity.ok(ApiResponse.success(category));
     }
@@ -114,6 +116,7 @@ public class CategoryController {
         private String color;
         private String description;
         private Integer sortOrder;
+        private Long parentId;
     }
 
     @lombok.Data
@@ -124,6 +127,7 @@ public class CategoryController {
         private String color;
         private String description;
         private Integer sortOrder;
+        private Long parentId;
     }
 }
 

@@ -97,7 +97,7 @@ class TransactionServiceTest {
 
         // When
         Transaction result = transactionService.createTransaction(
-                userId, categoryId, amount, date, note, null, null, null, null);
+                userId, categoryId, amount, "VND", date, note, null, null, null, null);
 
         // Then
         assertNotNull(result);
@@ -117,7 +117,7 @@ class TransactionServiceTest {
         // When & Then
         BusinessException exception = assertThrows(BusinessException.class, () -> {
             transactionService.createTransaction(
-                    userId, categoryId, new BigDecimal("100.00"), LocalDate.now(), null, null, null, null, null);
+                    userId, categoryId, new BigDecimal("100.00"), "VND", LocalDate.now(), null, null, null, null, null);
         });
 
         assertEquals(ErrorCode.USER_NOT_FOUND, exception.getErrorCode());
@@ -136,7 +136,7 @@ class TransactionServiceTest {
         // When & Then
         BusinessException exception = assertThrows(BusinessException.class, () -> {
             transactionService.createTransaction(
-                    userId, categoryId, new BigDecimal("100.00"), LocalDate.now(), null, null, null, null, null);
+                    userId, categoryId, new BigDecimal("100.00"), "VND", LocalDate.now(), null, null, null, null, null);
         });
 
         assertEquals(ErrorCode.CATEGORY_INVALID, exception.getErrorCode());
@@ -177,7 +177,7 @@ class TransactionServiceTest {
 
         // When
         Transaction result = transactionService.updateTransaction(
-                transactionId, userId, null, newAmount, null, newNote, null, null);
+                transactionId, userId, null, newAmount, "VND", null, newNote, null, null);
 
         // Then
         assertNotNull(result);
@@ -196,7 +196,7 @@ class TransactionServiceTest {
 
         // When & Then
         BusinessException exception = assertThrows(BusinessException.class, () -> {
-            transactionService.updateTransaction(transactionId, userId, null, null, null, null, null, null);
+            transactionService.updateTransaction(transactionId, userId, null, null, "VND", null, null, null, null);
         });
 
         assertEquals(ErrorCode.TRANSACTION_NOT_FOUND, exception.getErrorCode());

@@ -8,6 +8,8 @@ export interface Transaction {
         icon: string;
         color: string;
         type: "income" | "expense";
+        parentId?: number | null;
+        children?: any[];
     };
     transactionDate: string;
     note?: string;

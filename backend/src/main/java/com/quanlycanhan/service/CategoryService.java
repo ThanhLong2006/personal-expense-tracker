@@ -51,20 +51,33 @@ public class CategoryService {
     @Transactional
     @org.springframework.cache.annotation.CacheEvict(value = "userCategories", key = "#userId")
     public Category createCategory(Long userId, String name, String type, String icon, String color,
-                                  String description, Integer sortOrder) {
+                                  String description, Integer sortOrder, Long parentId) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+
+        Category parent = null;
+        if (parentId != null) {
+            parent = categoryRepository.findById(parentId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND_OR_NO_PERMISSION));
+            
+            // Đảm bảo không chọn chính mình làm cha (cho create thì không cần, nhưng parentId phải hợp lệ)
+            // Và đảm bảo parent thuộc user hoặc là systemDefault
+            if (!parent.getSystemDefault() && !parent.getUser().getId().equals(userId)) {
+                throw new BusinessException(ErrorCode.CATEGORY_NOT_FOUND_OR_NO_PERMISSION);
+            }
+        }
 
         Category category = Category.builder()
             .user(user)
             .name(name)
-            .type(type != null ? type : "expense") // Default to expense
+            .type(type != null ? type : (parent != null ? parent.getType() : "expense"))
             .icon(icon)
             .color(color)
             .description(description)
             .sortOrder(sortOrder != null ? sortOrder : 0)
             .systemDefault(false)
             .deleted(false)
+            .parent(parent)
             .build();
 
         return categoryRepository.save(category);
@@ -76,7 +89,7 @@ public class CategoryService {
     @Transactional
     @org.springframework.cache.annotation.CacheEvict(value = "userCategories", key = "#userId")
     public Category updateCategory(Long id, Long userId, String name, String type, String icon, String color,
-                                  String description, Integer sortOrder) {
+                                  String description, Integer sortOrder, Long parentId) {
         Category category = categoryRepository.findByIdAndUserId(id, userId)
             .orElseThrow(() -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND_OR_NO_PERMISSION));
 
@@ -98,6 +111,23 @@ public class CategoryService {
         if (sortOrder != null) {
             category.setSortOrder(sortOrder);
         }
+        
+        if (parentId != null) {
+            if (parentId.equals(id)) {
+                throw new BusinessException(ErrorCode.CATEGORY_INVALID_PARENT); 
+            }
+            Category parent = categoryRepository.findById(parentId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND_OR_NO_PERMISSION));
+            
+            if (!parent.getSystemDefault() && !parent.getUser().getId().equals(userId)) {
+                throw new BusinessException(ErrorCode.CATEGORY_NOT_FOUND_OR_NO_PERMISSION);
+            }
+            category.setParent(parent);
+        } else if (parentId == null && category.getParent() != null) {
+            // Trường hợp muốn bỏ parent
+            // Tùy theo logic, ở đây cho phép set null
+            category.setParent(null);
+        }
 
         return categoryRepository.save(category);
     }
@@ -116,7 +146,16 @@ public class CategoryService {
             throw new BusinessException(ErrorCode.CATEGORY_FORBIDDEN_DELETE_SYSTEM);
         }
 
+        softDeleteRecursive(category);
+    }
+
+    private void softDeleteRecursive(Category category) {
         category.setDeleted(true);
+        if (category.getChildren() != null) {
+            for (Category child : category.getChildren()) {
+                softDeleteRecursive(child);
+            }
+        }
         categoryRepository.save(category);
     }
 }

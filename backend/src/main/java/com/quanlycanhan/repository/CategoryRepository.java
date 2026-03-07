@@ -49,5 +49,10 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
            "AND (c.user.id = :userId OR c.systemDefault = true) " +
            "AND c.deleted = false")
     boolean existsByIdAndUserOrSystemDefault(@Param("categoryId") Long categoryId, @Param("userId") Long userId);
+
+    /**
+     * Tìm các danh mục con của một danh mục cha
+     */
+    List<Category> findByParentIdAndDeletedFalseOrderBySortOrderAscNameAsc(Long parentId);
 }
 

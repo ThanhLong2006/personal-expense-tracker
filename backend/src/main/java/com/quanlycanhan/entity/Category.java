@@ -115,6 +115,21 @@ public class Category {
     private LocalDateTime updatedAt;
 
     /**
+     * Danh mục cha (null nếu là danh mục cấp cao nhất)
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    @JsonIgnore
+    private Category parent;
+
+    /**
+     * Danh sách danh mục con
+     */
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Category> children = new ArrayList<>();
+
+    /**
      * Danh sách giao dịch thuộc danh mục này
      */
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -494,13 +494,48 @@ const TransactionForm = ({
               -- Chọn {formData.type === "expense" ? "khoản chi" : "nguồn thu"}{" "}
               --
             </option>
-            {(categories || [])
-              .filter((c: Category) => (c.type || "expense") === formData.type)
-              .map((cat: Category) => (
-                <option key={cat.id} value={String(cat.id)}>
-                  {cat.icon} {cat.name}
-                </option>
-              ))}
+            {(() => {
+              const allCats = (categories || []) as Category[];
+              const typeCats = allCats.filter((c: Category) => (c.type || "expense") === formData.type);
+              
+              // Tách ra parent và children
+              const parentCats = typeCats.filter(c => !c.parentId && !c.parent_id);
+              const result: JSX.Element[] = [];
+              
+              parentCats.forEach(parent => {
+                result.push(
+                  <option key={parent.id} value={String(parent.id)} className="font-bold">
+                    {parent.icon} {parent.name}
+                  </option>
+                );
+                
+                // Tìm con của parent này
+                const children = typeCats.filter(c => (c.parentId === parent.id || c.parent_id === parent.id));
+                children.forEach(child => {
+                  result.push(
+                    <option key={child.id} value={String(child.id)}>
+                      &nbsp;&nbsp;&nbsp;{child.icon} {child.name}
+                    </option>
+                  );
+                });
+              });
+              
+              // Thêm các category không có cha nhưng không nằm trong parentCats (đề phòng)
+              const otherCats = typeCats.filter(c => 
+                !parentCats.find(p => p.id === c.id) && 
+                !typeCats.find(p => (p.id === c.parentId || p.id === c.parent_id))
+              );
+              
+              otherCats.forEach(cat => {
+                result.push(
+                  <option key={cat.id} value={String(cat.id)}>
+                    {cat.icon} {cat.name}
+                  </option>
+                );
+              });
+              
+              return result;
+            })()}
             {(categories || []).filter(
               (c: Category) => (c.type || "expense") === formData.type
             ).length === 0 && <option disabled>Chưa có danh mục nào</option>}

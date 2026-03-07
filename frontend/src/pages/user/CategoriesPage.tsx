@@ -79,6 +79,8 @@ interface Category {
   icon?: string;
   type: "expense" | "income";
   systemDefault?: boolean;
+  parentId?: number | null;
+  children?: Category[];
   transactionCount?: number;
   totalAmount?: number;
   createdAt?: string;
@@ -93,6 +95,7 @@ interface CategoryForm {
   color: string;
   icon: string;
   type: "expense" | "income";
+  parentId?: number | null;
 }
 
 /**
@@ -165,6 +168,7 @@ const CategoriesPage = () => {
     "expense"
   );
   const [selectedIcon, setSelectedIcon] = useState("FaUtensils");
+  const [parentId, setParentId] = useState<number | null>(null);
 
   // Force refresh state
   const [refreshKey, setRefreshKey] = useState(0);
@@ -383,10 +387,12 @@ const CategoriesPage = () => {
       type: categoryType,
       icon: selectedIcon,
       color: categoryType === "income" ? "#10B981" : "#EF4444",
+      parentId: parentId,
     };
 
     createMutation.mutate(data);
-  }, [categoryName, categoryType, selectedIcon, createMutation]);
+    setParentId(null);
+  }, [categoryName, categoryType, selectedIcon, parentId, createMutation]);
 
   // Handler: Edit category
   const handleEdit = useCallback((category: Category) => {
@@ -415,14 +421,17 @@ const CategoriesPage = () => {
       icon: selectedIcon,
       color: categoryType === "income" ? "#10B981" : "#EF4444",
       type: categoryType,
+      parentId: parentId,
     };
 
     updateMutation.mutate({ id: editingCategory.id, data });
+    setParentId(null);
   }, [
     editingCategory,
     categoryName,
     selectedIcon,
     categoryType,
+    parentId,
     updateMutation,
   ]);
 
@@ -1045,6 +1054,14 @@ const CategoriesPage = () => {
                         <h3 className="font-semibold text-slate-800 text-sm leading-tight">
                           {category.name}
                         </h3>
+                        {category.systemDefault && (
+                          <span className="badge badge-xs badge-info text-[9px] text-white">Hệ thống</span>
+                        )}
+                        {category.parentId && (
+                          <div className="text-[10px] text-slate-400 mt-0.5">
+                            Thuộc: {categories?.find((c: any) => c.id === category.parentId)?.name || '...'}
+                          </div>
+                        )}
 
                         {(category.transactionCount ||
                           category.totalAmount) && (
@@ -1120,6 +1137,26 @@ const CategoriesPage = () => {
               </div>
 
               <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  Danh mục cha (không bắt buộc)
+                </label>
+                <select
+                  value={parentId || ""}
+                  onChange={(e) => setParentId(e.target.value ? Number(e.target.value) : null)}
+                  className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:border-[#00C4B4] focus:bg-white focus:outline-none transition-all duration-200 text-slate-700"
+                >
+                  <option value="">Không có (Danh mục gốc)</option>
+                  {(categories || [])
+                    .filter((c: any) => !c.parentId && c.type === categoryType) // Chỉ cho chọn cha là danh mục gốc và cùng loại
+                    .map((c: any) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name} {c.systemDefault ? '(Hệ thống)' : ''}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-3">
                   Chọn biểu tượng
                 </label>
@@ -1152,6 +1189,7 @@ const CategoriesPage = () => {
                   setCategoryName("");
                   setSelectedIcon("FaUtensils");
                   setCategoryType("expense");
+                  setParentId(null);
                 }}
                 className="px-6 py-3 rounded-xl border-2 border-slate-200 text-slate-600 font-medium hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
               >
@@ -1238,6 +1276,26 @@ const CategoriesPage = () => {
               </div>
 
               <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  Danh mục cha (không bắt buộc)
+                </label>
+                <select
+                  value={parentId || ""}
+                  onChange={(e) => setParentId(e.target.value ? Number(e.target.value) : null)}
+                  className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:border-[#00C4B4] focus:bg-white focus:outline-none transition-all duration-200 text-slate-700"
+                >
+                  <option value="">Không có (Danh mục gốc)</option>
+                  {(categories || [])
+                    .filter((c: any) => !c.parentId && c.type === editingCategory.type && c.id !== editingCategory.id)
+                    .map((c: any) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name} {c.systemDefault ? '(Hệ thống)' : ''}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-3">
                   Chọn biểu tượng
                 </label>
@@ -1270,6 +1328,7 @@ const CategoriesPage = () => {
                   setEditingCategory(null);
                   setCategoryName("");
                   setSelectedIcon("FaUtensils");
+                  setParentId(null);
                 }}
                 className="px-6 py-3 rounded-xl border-2 border-slate-200 text-slate-600 font-medium hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
               >
