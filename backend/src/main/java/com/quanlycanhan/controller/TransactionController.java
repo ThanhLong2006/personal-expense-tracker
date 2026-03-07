@@ -122,6 +122,7 @@ public class TransactionController {
             userId,
             request.getCategoryId(),
             amount,
+            request.getCurrency(),
             request.getTransactionDate(),
             request.getNote(),
             request.getLocation(),
@@ -150,6 +151,7 @@ public class TransactionController {
             userId,
             request.getCategoryId(),
             amount,
+            request.getCurrency(),
             request.getTransactionDate(),
             request.getNote(),
             request.getLocation(),
@@ -208,6 +210,7 @@ public class TransactionController {
         // Frontend sends a `type` ("income" | "expense"); accept but not required
         private String type;
         private String amount; // accept formatted strings like "1,000,000"
+        private String currency;
         private LocalDate transactionDate;
         private String note;
         private String location;
@@ -223,6 +226,7 @@ public class TransactionController {
         // allow `type` in update payloads as well (ignored by service)
         private String type;
         private String amount; // accept formatted strings
+        private String currency;
         private LocalDate transactionDate;
         private String note;
         private String location;

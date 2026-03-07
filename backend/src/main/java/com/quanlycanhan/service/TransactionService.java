@@ -72,7 +72,7 @@ public class TransactionService {
      */
     @Transactional
     @org.springframework.cache.annotation.CacheEvict(value = {"totalAmount", "totalByCategory", "aiPrediction"}, key = "#userId")
-    public Transaction createTransaction(Long userId, Long categoryId, BigDecimal amount,
+    public Transaction createTransaction(Long userId, Long categoryId, BigDecimal amount, String currency,
                                        LocalDate transactionDate, String note, String location,
                                        String receiptImage, Transaction.CreatedBy createdBy, Long createdByAdminId) {
         User user = userRepository.findById(userId)
@@ -90,6 +90,7 @@ public class TransactionService {
             .user(user)
             .category(category)
             .amount(amount)
+            .currency(currency != null ? currency : "VND")
             .transactionDate(transactionDate)
             .note(note)
             .location(location)
@@ -107,7 +108,7 @@ public class TransactionService {
      */
     @Transactional
     @org.springframework.cache.annotation.CacheEvict(value = {"totalAmount", "totalByCategory", "aiPrediction"}, key = "#userId")
-    public Transaction updateTransaction(Long id, Long userId, Long categoryId, BigDecimal amount,
+    public Transaction updateTransaction(Long id, Long userId, Long categoryId, BigDecimal amount, String currency,
                                        LocalDate transactionDate, String note, String location,
                                        String receiptImage) {
         Transaction transaction = getTransactionById(id, userId);
@@ -125,6 +126,9 @@ public class TransactionService {
         // Cập nhật các trường khác
         if (amount != null) {
             transaction.setAmount(amount);
+        }
+        if (currency != null) {
+            transaction.setCurrency(currency);
         }
         if (transactionDate != null) {
             transaction.setTransactionDate(transactionDate);

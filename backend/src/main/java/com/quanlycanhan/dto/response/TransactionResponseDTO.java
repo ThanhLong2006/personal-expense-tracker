@@ -23,6 +23,7 @@ public class TransactionResponseDTO {
     private Long id;
     private CategoryInfo category;
     private BigDecimal amount;
+    private String currency; // VND, USD, etc.
     private LocalDate transactionDate;
     private String note;
     private String location;

@@ -40,6 +40,7 @@ public class TransactionMapper {
                 .id(transaction.getId())
                 .category(categoryInfo)
                 .amount(transaction.getAmount())
+                .currency(transaction.getCurrency())
                 .transactionDate(transaction.getTransactionDate())
                 .note(transaction.getNote())
                 .location(transaction.getLocation())

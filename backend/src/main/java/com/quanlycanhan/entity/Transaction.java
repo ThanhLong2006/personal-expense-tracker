@@ -118,6 +118,13 @@ public class Transaction {
     private LocalDateTime updatedAt;
 
     /**
+     * Tiền tệ (VND, USD, EUR, etc.)
+     */
+    @Column(nullable = false, length = 10)
+    @Builder.Default
+    private String currency = "VND";
+
+    /**
      * Soft delete flag – thay cho xóa cứng trong database.
      */
     @Column(name = "deleted", nullable = false)

@@ -1,7 +1,8 @@
 export interface Transaction {
     id: number;
     amount: number;
-    category: {
+    currency: string;
+    category?: {
         id: number;
         name: string;
         icon: string;
@@ -12,8 +13,8 @@ export interface Transaction {
     note?: string;
     location?: string;
     receiptImage?: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export interface Filter {

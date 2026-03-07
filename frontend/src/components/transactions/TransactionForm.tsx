@@ -52,6 +52,7 @@ interface FormDataType {
   categoryId: string;
   type: "income" | "expense";
   amount: string | number;
+  currency: string;
   transactionDate: string;
   note: string;
   location: string;
@@ -62,6 +63,7 @@ interface TransactionMinimal {
   id?: number;
   category?: { id?: number; type?: string } | null;
   amount?: number | string;
+  currency?: string;
   transactionDate?: string;
   note?: string;
   location?: string;
@@ -72,6 +74,7 @@ export interface SubmittedTransaction {
   categoryId: number | null;
   type: "income" | "expense";
   amount: number;
+  currency: string;
   transactionDate: string;
   note: string;
   location: string;
@@ -105,6 +108,7 @@ const TransactionForm = ({
         ? "income"
         : "expense",
     amount: transaction?.amount || "",
+    currency: transaction?.currency || "VND",
     transactionDate: transaction?.transactionDate
       ? format(new Date(transaction.transactionDate), "yyyy-MM-dd")
       : format(new Date(), "yyyy-MM-dd"),
@@ -604,6 +608,30 @@ const TransactionForm = ({
         {errors.amount && (
           <p className="mt-1 text-sm text-red-500">{errors.amount}</p>
         )}
+      </div>
+
+      {/* Currency Input */}
+      <div>
+        <label className="block text-sm font-semibold text-slate-700 mb-2">
+          Tiền tệ
+        </label>
+        <div className="relative">
+          <FaMoneyBillWave className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10" />
+          <select
+            title="Tiền tệ"
+            aria-label="Tiền tệ"
+            className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+            value={formData.currency}
+            onChange={(e) =>
+              setFormData({ ...formData, currency: e.target.value })
+            }
+          >
+            <option value="VND">Tiền Việt Nam (VND)</option>
+            <option value="USD">Đô la Mỹ (USD)</option>
+            <option value="EUR">Euro (EUR)</option>
+            <option value="JPY">Yên Nhật (JPY)</option>
+          </select>
+        </div>
       </div>
 
       {/* Date Input */}

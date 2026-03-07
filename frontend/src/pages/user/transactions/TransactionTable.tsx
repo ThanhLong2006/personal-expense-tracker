@@ -83,7 +83,9 @@ const TransactionTable: React.FC<TransactionTableProps> = ({
                                     </span>
                                 </div>
                             </td>
-                            <td className="font-bold">{new Intl.NumberFormat('vi-VN').format(t.amount)}đ</td>
+                            <td className="font-bold">
+                                {new Intl.NumberFormat('vi-VN').format(t.amount)} {t.currency || 'VND'}
+                            </td>
                             <td>{t.note || '-'}</td>
                             <td>{t.location || '-'}</td>
                             <td>

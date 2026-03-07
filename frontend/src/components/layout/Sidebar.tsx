@@ -30,6 +30,7 @@ const Sidebar = ({ onOpenAddModal }: SidebarProps) => {
   const menuItems = [
     { path: "/dashboard", label: "Dashboard", icon: <FaThLarge /> },
     { path: "/transactions", label: "Giao dịch", icon: <FaExchangeAlt /> },
+    { path: "/recurring-transactions", label: "Định kỳ", icon: <FaExchangeAlt /> },
     { path: "/categories", label: "Danh mục", icon: <FaFolderOpen /> },
     { path: "/statistics", label: "Thống kê", icon: <FaChartPie /> },
     { path: "/reports", label: "Báo cáo", icon: <FaFileAlt /> },
@@ -296,8 +297,8 @@ const Sidebar = ({ onOpenAddModal }: SidebarProps) => {
 
       {/* Mobile Bottom Nav */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t-2 border-slate-200 shadow-2xl z-40">
-        <div className="grid grid-cols-5 gap-0">
-          {menuItems.slice(0, 5).map((item) => {
+        <div className="grid grid-cols-6 gap-0">
+          {menuItems.slice(0, 6).map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <Link

@@ -33,6 +33,7 @@ const CategoriesPage = lazy(() => import("./pages/user/CategoriesPage"));
 const StatisticsPage = lazy(() => import("./pages/user/StatisticsPage"));
 const ReportsPage = lazy(() => import("./pages/user/ReportsPage"));
 const SettingsPage = lazy(() => import("./pages/user/SettingsPage"));
+const RecurringTransactionsPage = lazy(() => import("./pages/user/RecurringTransactionsPage"));
 
 // Admin pages - Lazy loaded
 const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
@@ -110,6 +111,7 @@ function App() {
               <Route path="/categories" element={<Suspense fallback={<div className="p-8">Đang tải...</div>}><CategoriesPage /></Suspense>} />
               <Route path="/statistics" element={<Suspense fallback={<div className="p-8">Đang tải...</div>}><StatisticsPage /></Suspense>} />
               <Route path="/reports" element={<Suspense fallback={<div className="p-8">Đang tải...</div>}><ReportsPage /></Suspense>} />
+              <Route path="/recurring-transactions" element={<Suspense fallback={<div className="p-8">Đang tải...</div>}><RecurringTransactionsPage /></Suspense>} />
               <Route path="/settings" element={<Suspense fallback={<div className="p-8">Đang tải...</div>}><SettingsPage /></Suspense>} />
             </Route>
 
