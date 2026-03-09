@@ -31,6 +31,7 @@ public enum ErrorCode {
     CATEGORY_INVALID("CATEGORY_INVALID", "Danh mục không hợp lệ"),
     CATEGORY_FORBIDDEN_DELETE_SYSTEM("CATEGORY_FORBIDDEN_DELETE_SYSTEM", "Không thể xóa danh mục hệ thống"),
     CATEGORY_NOT_FOUND_OR_NO_PERMISSION("CATEGORY_NOT_FOUND_OR_NO_PERMISSION", "Không tìm thấy danh mục hoặc không có quyền"),
+    CATEGORY_INVALID_PARENT("CATEGORY_INVALID_PARENT", "Danh mục cha không hợp lệ"),    
 
     // OTP / 2FA
     OTP_FEATURE_DISABLED("OTP_FEATURE_DISABLED", "OTP đang tắt"),
