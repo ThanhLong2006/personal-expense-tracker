@@ -24,6 +24,7 @@ import {
   Area,
 } from "recharts";
 import api from "../../api/axios";
+import { getMonthlyStats, getDailyStats, getCategoryStats } from "../../api/transactions";
 import StatCard from "../../components/ui/StatCard";
 import ChartCard from "../../components/ui/ChartCard";
 
@@ -62,36 +63,23 @@ const StatisticsPage = () => {
     };
   }, [currentMonth, comparisonMonths]);
 
-  // Lấy dữ liệu giao dịch cho tháng hiện tại
-  const { data: transactions, isLoading } = useQuery({
-    queryKey: ["statistics-transactions", dateRange],
-    queryFn: async () => {
-      const res = await api.get("/transactions", {
-        params: {
-          startDate: dateRange.start,
-          endDate: dateRange.end,
-          size: 1000,
-        },
-      });
-      return res.data.data?.content || [];
-    },
+  // Lấy dữ liệu thống kê theo ngày (cho các biểu đồ trong tháng)
+  const { data: dailyStatsData, isLoading: isLoadingDaily } = useQuery({
+    queryKey: ["statistics-daily", dateRange],
+    queryFn: () => getDailyStats(dateRange.start, dateRange.end),
   });
 
-  // Lấy dữ liệu giao dịch cho biểu đồ so sánh (phạm vi mở rộng)
-  const { data: allTransactions, isLoading: isAllTransactionsLoading } =
-    useQuery({
-      queryKey: ["all-transactions", comparisonDateRange],
-      queryFn: async () => {
-        const res = await api.get("/transactions", {
-          params: {
-            startDate: comparisonDateRange.start,
-            endDate: comparisonDateRange.end,
-            size: 10000,
-          },
-        });
-        return res.data.data?.content || [];
-      },
-    });
+  // Lấy dữ liệu thống kê theo tháng (cho biểu đồ so sánh)
+  const { data: monthlyStatsData, isLoading: isLoadingMonthly } = useQuery({
+    queryKey: ["statistics-monthly", comparisonDateRange],
+    queryFn: () => getMonthlyStats(comparisonDateRange.start, comparisonDateRange.end),
+  });
+
+  // Lấy dữ liệu thống kê theo danh mục
+  const { data: categoryStatsData, isLoading: isLoadingCategory } = useQuery({
+    queryKey: ["statistics-category", dateRange],
+    queryFn: () => getCategoryStats(dateRange.start, dateRange.end),
+  });
 
   // Fetch categories data (không sử dụng nhưng giữ lại cho tương lai)
   const { data: categoriesData } = useQuery({
@@ -103,7 +91,7 @@ const StatisticsPage = () => {
   });
 
   const stats = useMemo(() => {
-    if (!transactions)
+    if (!dailyStatsData || !categoryStatsData)
       return {
         totalTransactions: 0,
         totalIncome: 0,
@@ -115,42 +103,19 @@ const StatisticsPage = () => {
 
     let totalIncome = 0;
     let totalExpense = 0;
-    const dailyStats: Record<string, { income: number; expense: number }> = {};
-    const categoryStats: Record<string, { amount: number; type: string }> = {};
+    
+    // Find count for current month
+    const currentMonthKey = format(currentMonth, "yyyy-MM");
+    const currentMonthStats = monthlyStatsData?.find(
+      (m: any) => `${m.year}-${String(m.month).padStart(2, "0")}` === currentMonthKey
+    );
 
-    interface Transaction {
-      amount: number | string;
-      category?: { type?: string; name?: string } | null;
-      transactionDate: string;
-    }
-
-    (transactions as Transaction[]).forEach((t) => {
-      const amount =
-        typeof t.amount === "string" ? parseFloat(t.amount) : t.amount;
-      const type = t.category?.type || "expense";
-      const date = format(new Date(t.transactionDate), "yyyy-MM-dd");
-      const categoryName = t.category?.name || "Khác";
-
-      // Daily stats
-      if (!dailyStats[date]) {
-        dailyStats[date] = { income: 0, expense: 0 };
-      }
-
-      if (type === "income") {
-        totalIncome += amount;
-        dailyStats[date].income += amount;
-        categoryStats[categoryName] = {
-          amount: (categoryStats[categoryName]?.amount || 0) + amount,
-          type: "income",
-        };
-      } else {
-        totalExpense += amount;
-        dailyStats[date].expense += amount;
-        categoryStats[categoryName] = {
-          amount: (categoryStats[categoryName]?.amount || 0) + amount,
-          type: "expense",
-        };
-      }
+    // Process daily data
+    const dailyMap: Record<number, { income: number; expense: number }> = {};
+    dailyStatsData.forEach((d: { day: number; income: number; expense: number }) => {
+      dailyMap[d.day] = { income: d.income, expense: d.expense };
+      totalIncome += d.income;
+      totalExpense += d.expense;
     });
 
     // Generate daily data for chart
@@ -160,92 +125,61 @@ const StatisticsPage = () => {
     });
 
     const dailyData = days.map((day) => {
-      const dateStr = format(day, "yyyy-MM-dd");
-      const dayData = dailyStats[dateStr] || { income: 0, expense: 0 };
+      const dayNum = day.getDate();
+      const dayData = dailyMap[dayNum] || { income: 0, expense: 0 };
       return {
         date: format(day, "dd/MM"),
         income: dayData.income,
         expense: dayData.expense,
-        negativeExpense: -dayData.expense, // Thêm dữ liệu âm cho biểu đồ chi tiêu
+        negativeExpense: -dayData.expense,
         net: dayData.income - dayData.expense,
       };
     });
 
     // Category data for pie chart (chỉ chi tiêu)
-    const expenseCategories = Object.entries(categoryStats)
-      .filter(([_, data]) => data.type === "expense")
-      .map(([name, data]) => ({ name, value: data.amount }))
-      .sort((a, b) => b.value - a.value)
+    const expenseCategories = categoryStatsData
+      .filter((c: any) => c.type === "expense")
+      .map((c: any) => ({ name: c.name, value: c.value }))
       .slice(0, 6);
 
-    // Top categories (bao gồm cả thu nhập và chi tiêu)
-    const topCategories: TopCategory[] = Object.entries(categoryStats)
-      .map(([name, data]) => ({
-        name,
-        value: data.amount,
-        type: data.type as "income" | "expense",
+    // Top categories
+    const topCategories: TopCategory[] = categoryStatsData
+      .map((c: any) => ({
+        name: c.name,
+        value: c.value,
+        type: c.type,
         percentage:
-          data.type === "income"
-            ? ((data.amount / totalIncome) * 100).toFixed(1)
-            : ((data.amount / totalExpense) * 100).toFixed(1),
+          c.type === "income"
+            ? totalIncome > 0 ? ((c.value / totalIncome) * 100).toFixed(1) : "0"
+            : totalExpense > 0 ? ((c.value / totalExpense) * 100).toFixed(1) : "0",
       }))
-      .sort((a, b) => b.value - a.value)
       .slice(0, 5);
 
     return {
-      totalTransactions: transactions.length,
+      totalTransactions: currentMonthStats?.count || 0,
       totalIncome,
       totalExpense,
       dailyData,
       categoryData: expenseCategories,
       topCategories,
     };
-  }, [transactions, currentMonth]);
+  }, [dailyStatsData, categoryStatsData, monthlyStatsData, currentMonth]);
 
   // Calculate monthly comparison data separately
   const monthlyComparison = useMemo(() => {
-    if (!allTransactions || allTransactions.length === 0) return [];
+    if (!monthlyStatsData) return [];
 
-    interface Transaction {
-      amount: number | string;
-      category?: { type?: string } | null;
-      transactionDate: string;
-    }
-
-    const monthlyStats: Record<
-      string,
-      { income: number; expense: number; count: number }
-    > = {};
-
-    (allTransactions as Transaction[]).forEach((t) => {
-      const amount =
-        typeof t.amount === "string" ? parseFloat(t.amount) : t.amount;
-      const type = t.category?.type || "expense";
-      const month = format(new Date(t.transactionDate), "yyyy-MM");
-
-      if (!monthlyStats[month]) {
-        monthlyStats[month] = { income: 0, expense: 0, count: 0 };
-      }
-
-      monthlyStats[month].count += 1;
-
-      if (type === "income") {
-        monthlyStats[month].income += amount;
-      } else {
-        monthlyStats[month].expense += amount;
-      }
+    const statsMap: Record<string, { income: number; expense: number; count: number }> = {};
+    monthlyStatsData.forEach((m: any) => {
+      const key = `${m.year}-${String(m.month).padStart(2, "0")}`;
+      statsMap[key] = { income: m.income, expense: m.expense, count: m.count };
     });
 
-    // Generate monthly comparison data for selected months
     const months = [];
     for (let i = comparisonMonths - 1; i >= 0; i--) {
       const monthDate = subMonths(currentMonth, i);
       const monthKey = format(monthDate, "yyyy-MM");
-      const monthData = monthlyStats[monthKey] || {
-        income: 0,
-        expense: 0,
-        count: 0,
-      };
+      const monthData = statsMap[monthKey] || { income: 0, expense: 0, count: 0 };
 
       months.push({
         month: format(monthDate, "MM/yyyy"),
@@ -257,7 +191,7 @@ const StatisticsPage = () => {
     }
 
     return months;
-  }, [allTransactions, currentMonth, comparisonMonths]);
+  }, [monthlyStatsData, currentMonth, comparisonMonths]);
 
   // Calculate Percentage Changes based on monthlyComparison
   const percentageChanges = useMemo(() => {
@@ -395,7 +329,7 @@ const StatisticsPage = () => {
         </div>
       </div>
 
-      {isLoading || isAllTransactionsLoading ? (
+      {isLoadingDaily || isLoadingMonthly || isLoadingCategory ? (
         <div className="flex justify-center items-center h-64">
           <div className="loading loading-spinner loading-lg text-[#00C4B4]"></div>
         </div>
@@ -763,7 +697,7 @@ const StatisticsPage = () => {
                               outerRadius={110}
                               innerRadius={55}
                             >
-                              {stats.categoryData.map((_, index) => (
+                              {stats.categoryData.map((_: any, index: number) => (
                                 <Cell
                                   key={`cell-${index}`}
                                   fill={COLORS[index % COLORS.length]}
@@ -781,7 +715,7 @@ const StatisticsPage = () => {
 
                       {/* Legend - Right side, aligned to start */}
                       <div className="flex-1 space-y-2">
-                        {stats.categoryData.slice(0, 6).map((item, index) => (
+                        {stats.categoryData.slice(0, 6).map((item: any, index: number) => (
                           <div
                             key={item.name}
                             className="flex items-center gap-2 text-sm"
@@ -1083,9 +1017,6 @@ const StatisticsPage = () => {
                             <div className="text-center text-slate-500">
                               <div className="text-lg mb-2">📊</div>
                               <div className="text-sm">Đang tải dữ liệu...</div>
-                              {isAllTransactionsLoading && (
-                                <div className="loading loading-spinner loading-sm mt-2"></div>
-                              )}
                             </div>
                           </div>
                         )}

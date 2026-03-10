@@ -190,5 +190,55 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
      */
     @Query("SELECT DISTINCT t.user.id FROM Transaction t WHERE t.deleted = false AND t.transactionDate >= :since")
     List<Long> findDistinctUserIdsWithTransactionsSince(@Param("since") LocalDate since);
+
+    /**
+     * Aggregation for Monthly Statistics: [Year, Month, TotalIncome, TotalExpense]
+     */
+    @Query("SELECT YEAR(t.transactionDate), MONTH(t.transactionDate), " +
+           "SUM(CASE WHEN t.category.type = 'income' THEN t.amount ELSE 0 END), " +
+           "SUM(CASE WHEN t.category.type = 'expense' THEN t.amount ELSE 0 END), " +
+           "COUNT(t.id) " +
+           "FROM Transaction t " +
+           "WHERE t.user.id = :userId AND t.deleted = false " +
+           "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+           "GROUP BY YEAR(t.transactionDate), MONTH(t.transactionDate) " +
+           "ORDER BY YEAR(t.transactionDate) ASC, MONTH(t.transactionDate) ASC")
+    List<Object[]> getMonthlyStats(
+        @Param("userId") Long userId,
+        @Param("startDate") LocalDate startDate,
+        @Param("endDate") LocalDate endDate
+    );
+
+    /**
+     * Aggregation for Daily Statistics in a month: [Day, TotalIncome, TotalExpense]
+     */
+    @Query("SELECT DAY(t.transactionDate), " +
+           "SUM(CASE WHEN t.category.type = 'income' THEN t.amount ELSE 0 END), " +
+           "SUM(CASE WHEN t.category.type = 'expense' THEN t.amount ELSE 0 END) " +
+           "FROM Transaction t " +
+           "WHERE t.user.id = :userId AND t.deleted = false " +
+           "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+           "GROUP BY DAY(t.transactionDate) " +
+           "ORDER BY DAY(t.transactionDate) ASC")
+    List<Object[]> getDailyStats(
+        @Param("userId") Long userId,
+        @Param("startDate") LocalDate startDate,
+        @Param("endDate") LocalDate endDate
+    );
+
+    /**
+     * Aggregation for Category Distribution: [CategoryName, TotalAmount, CategoryType]
+     */
+    @Query("SELECT t.category.name, SUM(t.amount), t.category.type " +
+           "FROM Transaction t " +
+           "WHERE t.user.id = :userId AND t.deleted = false " +
+           "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+           "GROUP BY t.category.id, t.category.name, t.category.type " +
+           "ORDER BY SUM(t.amount) DESC")
+    List<Object[]> getCategoryStats(
+        @Param("userId") Long userId,
+        @Param("startDate") LocalDate startDate,
+        @Param("endDate") LocalDate endDate
+    );
 }
 

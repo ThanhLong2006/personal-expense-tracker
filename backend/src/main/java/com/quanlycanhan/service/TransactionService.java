@@ -248,5 +248,52 @@ public class TransactionService {
         // EntityGraph trong repository sẽ load luôn category để tránh N+1 query
         return transactionRepository.findByUserIdAndDateRange(userId, startDate, endDate);
     }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<java.util.Map<String, Object>> getMonthlyStats(Long userId, LocalDate startDate, LocalDate endDate) {
+        List<Object[]> results = transactionRepository.getMonthlyStats(userId, startDate, endDate);
+        List<java.util.Map<String, Object>> stats = new java.util.ArrayList<>();
+        
+        for (Object[] row : results) {
+            java.util.Map<String, Object> map = new java.util.HashMap<>();
+            map.put("year", row[0]);
+            map.put("month", row[1]);
+            map.put("income", row[2]);
+            map.put("expense", row[3]);
+            map.put("count", row[4]);
+            stats.add(map);
+        }
+        return stats;
+    }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<java.util.Map<String, Object>> getDailyStats(Long userId, LocalDate startDate, LocalDate endDate) {
+        List<Object[]> results = transactionRepository.getDailyStats(userId, startDate, endDate);
+        List<java.util.Map<String, Object>> stats = new java.util.ArrayList<>();
+        
+        for (Object[] row : results) {
+            java.util.Map<String, Object> map = new java.util.HashMap<>();
+            map.put("day", row[0]);
+            map.put("income", row[1]);
+            map.put("expense", row[2]);
+            stats.add(map);
+        }
+        return stats;
+    }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<java.util.Map<String, Object>> getCategoryStats(Long userId, LocalDate startDate, LocalDate endDate) {
+        List<Object[]> results = transactionRepository.getCategoryStats(userId, startDate, endDate);
+        List<java.util.Map<String, Object>> stats = new java.util.ArrayList<>();
+        
+        for (Object[] row : results) {
+            java.util.Map<String, Object> map = new java.util.HashMap<>();
+            map.put("name", row[0]);
+            map.put("value", row[1]);
+            map.put("type", row[2]);
+            stats.add(map);
+        }
+        return stats;
+    }
 }
 

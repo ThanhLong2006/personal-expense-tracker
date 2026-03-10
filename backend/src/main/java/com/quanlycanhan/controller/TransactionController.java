@@ -2,6 +2,7 @@ package com.quanlycanhan.controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,7 +31,6 @@ import com.quanlycanhan.service.TransactionService;
 import com.quanlycanhan.util.SecurityUtil;
 
 import lombok.RequiredArgsConstructor;
-
 /**
  * Controller xử lý giao dịch chi tiêu
  */
@@ -186,6 +186,39 @@ public class TransactionController {
         Long userId = securityUtil.getUserId(authentication);
         BigDecimal total = transactionService.getTotalAmount(userId, startDate, endDate);
         return ResponseEntity.ok(ApiResponse.success(total));
+    }
+
+    @GetMapping("/stats/monthly")
+    public ResponseEntity<ApiResponse<List<java.util.Map<String, Object>>>> getMonthlyStats(
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate,
+            Authentication authentication
+    ) {
+        Long userId = securityUtil.getUserId(authentication);
+        List<java.util.Map<String, Object>> stats = transactionService.getMonthlyStats(userId, startDate, endDate);
+        return ResponseEntity.ok(ApiResponse.success(stats));
+    }
+
+    @GetMapping("/stats/daily")
+    public ResponseEntity<ApiResponse<List<java.util.Map<String, Object>>>> getDailyStats(
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate,
+            Authentication authentication
+    ) {
+        Long userId = securityUtil.getUserId(authentication);
+        List<java.util.Map<String, Object>> stats = transactionService.getDailyStats(userId, startDate, endDate);
+        return ResponseEntity.ok(ApiResponse.success(stats));
+    }
+
+    @GetMapping("/stats/category")
+    public ResponseEntity<ApiResponse<List<java.util.Map<String, Object>>>> getCategoryStats(
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate,
+            Authentication authentication
+    ) {
+        Long userId = securityUtil.getUserId(authentication);
+        List<java.util.Map<String, Object>> stats = transactionService.getCategoryStats(userId, startDate, endDate);
+        return ResponseEntity.ok(ApiResponse.success(stats));
     }
 
     /**
