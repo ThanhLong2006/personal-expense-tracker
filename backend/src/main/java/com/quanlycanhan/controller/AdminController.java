@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
-
 /**
  * Controller Admin - Quản lý users và giao dịch của users
  * - Yêu cầu role ADMIN
@@ -146,6 +144,7 @@ public class AdminController {
             userId,
             request.getCategoryId(),
             request.getAmount(),
+            null,  // currency will default to "VND"
             request.getTransactionDate(),
             request.getNote(),
             request.getLocation(),
@@ -172,6 +171,7 @@ public class AdminController {
             userId, // Dùng userId của user sở hữu giao dịch
             request.getCategoryId(),
             request.getAmount(),
+            null,  // currency will default to "VND"
             request.getTransactionDate(),
             request.getNote(),
             request.getLocation(),

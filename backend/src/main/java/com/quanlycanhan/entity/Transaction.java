@@ -141,5 +141,11 @@ public class Transaction {
     public enum CreatedBy {
         USER, // Người dùng tự nhập
         ADMIN // Admin nhập thay
+;
+
+        String createdBy(Long adminId, CreatedBy admin2) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'createdBy'");
+        }
     }
 }
