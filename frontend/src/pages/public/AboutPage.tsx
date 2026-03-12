@@ -26,44 +26,7 @@ import {
 
 const AboutPage = () => {
   // Component tuyết rơi
-  const SnowEffect = () => {
-    const snowflakes = Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      animationDuration: `${Math.random() * 3 + 2}s`,
-      animationDelay: `${Math.random() * 5}s`,
-      fontSize: `${Math.random() * 10 + 10}px`,
-      opacity: Math.random() * 0.6 + 0.4,
-    }));
 
-    return (
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {snowflakes.map((flake) => (
-          <motion.div
-            key={flake.id}
-            className="absolute text-white"
-            initial={{ top: "-10%", left: flake.left }}
-            animate={{
-              top: "110%",
-              left: `calc(${flake.left} + ${Math.random() * 100 - 50}px)`,
-            }}
-            transition={{
-              duration: parseFloat(flake.animationDuration),
-              delay: parseFloat(flake.animationDelay),
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{
-              fontSize: flake.fontSize,
-              opacity: flake.opacity,
-            }}
-          >
-            ❄
-          </motion.div>
-        ))}
-      </div>
-    );
-  };
 
   const stats = [
     { icon: Users, value: "50,000+", label: "Người dùng tin tưởng" },
@@ -111,36 +74,6 @@ const AboutPage = () => {
     },
   ];
 
-  const team = [
-    {
-      name: "Võ Thành Long",
-      role: "CEO & Founder",
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400",
-      bio: "10 năm kinh nghiệm FinTech, từng làm tại Momo & VNPAY",
-    },
-    {
-      name: "Trần Hoàng Minh",
-      role: "CTO & AI Lead",
-      avatar:
-        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400",
-      bio: "Tiến sĩ AI, chuyên gia Machine Learning",
-    },
-    {
-      name: "Phạm Gia Hào",
-      role: "Head of Design",
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
-      bio: "Từng thiết kế cho Shopee & Tiki",
-    },
-    {
-      name: "Đoàn Viên Hoàng Lâm",
-      role: "Head of Design",
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
-      bio: "Từng thiết kế cho Shopee & Tiki",
-    },
-  ];
 
   const milestones = [
     {
@@ -227,10 +160,6 @@ const AboutPage = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20"></div>
 
         <div className="absolute inset-0 bg-black/20"></div>
-
-        {/* Hiệu ứng tuyết rơi */}
-        <SnowEffect />
-
         {/* Decorative shapes */}
         <motion.div
           className="absolute top-20 left-10 w-20 h-20 border-4 border-white/20 rounded-full"
@@ -484,16 +413,16 @@ const AboutPage = () => {
               >
                 {/* Icon + viền nhẹ */}
                 <div className="w-14 h-14 bg-[#0077FF]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-100 transition-colors">
-                  <item.icon className="w-8 h-8 text-[#0077FF] group-hover:text-teal-400 transition-colors" />
+                  <item.icon className="w-8 h-8 text-[#0077FF] transition-colors" />
                 </div>
 
                 {/* Tiêu đề */}
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-teal-400 transition-colors">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 transition-colors">
                   {item.title}
                 </h3>
 
                 {/* Mô tả dài hơn, dễ hiểu hơn */}
-                <p className="text-gray-600 leading-relaxed group-hover:text-teal-400 transition-colors">
+                <p className="text-gray-600 leading-relaxed transition-colors">
                   {item.desc}
                 </p>
               </motion.div>
@@ -501,61 +430,6 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
-
-      {/* TEAM */}
-      <section className="py-24 bg-gradient-to-b from-white to-cyan-50">
-        <div className="container mx-auto px-6">
-          <h2 className="text-5xl font-black text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-[#0066FF] to-[#00D4FF]">
-            Đội ngũ MeMe
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
-            {team.map((member, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-                className="group bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100"
-              >
-                <div className="h-64 overflow-hidden">
-                  <img
-                    src={member.avatar}
-                    alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                  />
-                </div>
-                <div className="p-8 text-center">
-                  <h3 className="text-2xl font-black text-gray-900">
-                    {member.name}
-                  </h3>
-                  <p className="text-[#0077FF] font-bold text-lg mt-2">
-                    {member.role}
-                  </p>
-                  <p className="text-gray-600 mt-4 leading-relaxed">
-                    {member.bio}
-                  </p>
-                  <div className="flex justify-center gap-4 mt-6">
-                    <a
-                      href="#"
-                      className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-[#0077FF] hover:text-white transition"
-                    >
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                    <a
-                      href="#"
-                      className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-[#0077FF] hover:text-white transition"
-                    >
-                      <Github className="w-5 h-5" />
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* MILESTONES */}
       <section className="py-24">
         <div className="container mx-auto px-6">
@@ -588,34 +462,6 @@ const AboutPage = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT + CTA */}
-      <section className="py-28 bg-gradient-to-br from-[#0066FF] via-[#0077FF] to-[#00D4FF] text-white">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-5xl md:text-6xl font-black mb-8">
-            Bạn đã sẵn sàng cùng MeMe chưa?
-          </h2>
-          <p className="text-2xl mb-12 opacity-90">
-            Hàng chục nghìn người đã thay đổi chi tiêu nhờ MeMe
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link
-              to="/register"
-              className="btn btn-xl items-center justify-center bg-white text-[#0066FF] hover:bg-gray-100 font-black text-xl px-16 py-8 rounded-2xl shadow-2xl hover:scale-105 transition"
-            >
-              Tham gia MeMe ngay
-              <ArrowRight className="w-7 h-7 ml-3" />
-            </Link>
-            <a
-              href="mailto:hello@meme.app"
-              className="btn btn-xl items-center justify-center btn-outline text-white border-2 border-white hover:bg-white hover:text-[#0066FF] font-bold text-xl px-16 py-8 rounded-2xl"
-            >
-              <Mail className="w-6 h-6 mr-3" />
-              Liên hệ đội ngũ
-            </a>
           </div>
         </div>
       </section>
