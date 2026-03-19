@@ -7,7 +7,7 @@ import {
   FaChartLine,
   FaPercent,
 } from "react-icons/fa6";
-import api from "../../api/axios";
+import { getMonthlyStats } from "../../api/transactions";
 import FloatingQuickAction from "../../components/common/FloatingQuickAction";
 
 interface MonthlyData {
@@ -36,14 +36,10 @@ const ReportsPage: React.FC = () => {
     queryKey: ["reports", year],
     queryFn: async () => {
       try {
-        const res = await api.get("/transactions", {
-          params: {
-            startDate: `${year}-01-01`,
-            endDate: `${year}-12-31`,
-            size: 5000,
-          },
-        });
-        const transactions = res.data.data?.content || [];
+        const statsData = await getMonthlyStats(
+          `${year}-01-01`,
+          `${year}-12-31`
+        );
 
         // Tổng hợp theo tháng
         const monthly: MonthlyData[] = Array(12)
@@ -55,22 +51,23 @@ const ReportsPage: React.FC = () => {
             month: idx + 1,
           }));
 
-        interface Transaction {
-          transactionDate: string;
-          amount: number | string;
-          category?: { type?: string } | null;
+        interface StatsResponse {
+          year: number;
+          month: number;
+          income: number;
+          expense: number;
+          count: number;
         }
 
-        (transactions as Transaction[]).forEach((t) => {
-          const month = new Date(t.transactionDate).getMonth();
-          const amount =
-            typeof t.amount === "string" ? parseFloat(t.amount) : t.amount;
-          if (t.category?.type === "income") {
-            monthly[month].income += amount;
-          } else {
-            monthly[month].expense += amount;
-          }
-        });
+        if (statsData && Array.isArray(statsData)) {
+          statsData.forEach((d: StatsResponse) => {
+            const mIdx = d.month - 1; // backend trả về month từ 1 đến 12
+            if (mIdx >= 0 && mIdx < 12) {
+              monthly[mIdx].income = d.income || 0;
+              monthly[mIdx].expense = d.expense || 0;
+            }
+          });
+        }
 
         // Tính số dư cho mỗi tháng
         monthly.forEach((m) => {
